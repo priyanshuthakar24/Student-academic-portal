@@ -1,0 +1,21 @@
+<%- include('../includes/head.ejs')%>
+    </head>
+
+    <body>
+        <main>
+            Name: <%= studentdata.name%> <br><br>
+            Mobile No: <%= studentdata.mobileno%> <br><br>
+            Emial: <%= studentdata.email%> <br><br>
+            Date of Birth: <%= studentdata.Dob%> <br><br>
+            Xender: <%= studentdata.xender%> <br><br>
+            studentid:<%= studentdata._id%>
+            <p>hi from mee</p>
+            <div class="marksheet">
+                <h2 style="text-align: center;">Add marksheet</h2>
+                <input type="hidden" value="<%= studentdata._id%>" name="studentid">
+                <a href="/admin/addmarksheet/<%= studentdata._id%>">
+                    <button type="submit"><i class='bx bxs-image-add'></i></button>
+                </a>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs')%>

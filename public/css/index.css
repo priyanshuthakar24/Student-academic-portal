@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+}
+
+.mainbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 70px;
+}
+
+.mainbox_box1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mainbox_box1
+ button{
+    padding: 50px;
+    font-size: 20px;
+}
+.mainbox_box1 button i {
+    font-size: 70px;
+}
+.main_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0; 
+}
+.main_container input{
+    padding: 8px 40px;
+}
+.main_container button {
+    font-size: 25px;
+}
+.marksheet{
+    text-align: center;
+}
+.marksheet button{
+    padding: 50px;
+    font-size: 20px;
+}
+.marksheet button i{
+    font-size: 70px;
+}
+.main_detail{
+    font-size: 20px;
+    padding-left: 40px;
+}
+.main_detail h1{
+    text-align: center;
+}
+.main_marksheet{
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main_marksheet img{
+    width: 220px;
+    height: 220px;
+}
+.main_marksheet .resultdetail{
+    text-align: center;
+    font-size: 1.5rem;
+}

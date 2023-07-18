@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs')%>
+    </head>
+
+    <body>
+        <main>
+            <div class="header">
+                <h1>Student academic portal</h1>
+            </div>
+            <div class="mainbox">
+                <div class="mainbox_box1">
+                   <a href="/admin/addstudent">
+                        <button type="submit">
+                            <i class='bx bxs-user-plus'></i>
+                            <p>new user</p>
+                        </button>
+                    </a>
+                </div>
+                <div class="mainbox_box1">
+                    <a href="/admin/editstudent">
+                        <button type="submit">
+                            <i class='bx bxs-edit-alt'></i>
+                            <p>edit detail</p>
+                        </button>
+                    </a>
+                </div>
+                <div class="mainbox_box1">
+                    <a href="/admin/viewdetail">
+                        <button type="submit">
+                            <i class='bx bxs-user-detail'></i>
+                            <p>view detail</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+           
+
+        </main>
+
+        <%- include('../includes/end.ejs')%>

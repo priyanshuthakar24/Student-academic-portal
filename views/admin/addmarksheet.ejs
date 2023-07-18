@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs')%>
+<link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+    <main>
+        <h1>Add marksheet</h1>
+        
+        <form action="/admin/postmarksheet" method="post" class="product-form">
+<div class="form-control">
+    <label for="marksheet">Marksheet link</label>
+    <input type="text" name="marksheetlink">
+</div>
+<div class="form-control">
+    <label for="std">Std</label>
+    <input type="number" name="std">
+</div>
+<div class="form-control">
+    <label for="result">Result</label>
+    <select name="result" id="">
+        <option value="pass">Pass</option>
+        <option value="fail">Fail</option>
+    </select>
+</div>
+<input type="hidden" name="studentid" value="<%= studentdata._id%>">
+<button type="submit">
+    Add Marksheet
+</button>
+        </form>
+    </main>
+    <%- include('../includes/end.ejs')%>
