@@ -1,0 +1,33 @@
+<%- include('../includes/head.ejs')%>
+    </head>
+
+    <body>
+        <main>
+            <div class="main_detail">
+                <h1>Student detail</h1>
+                Name: <%= detail.name%> <br><br>
+                    Mobile No: <%= detail.mobileno%> <br><br>
+                        Emial: <%= detail.email%> <br><br>
+                            Date of Birth: <%= detail.Dob%> <br><br>
+                                Xender: <%= detail.xender%> <br><br>
+            </div>
+            <!-- studentid:<%= detail._id%><br><br> -->
+           <div class="main_marksheet">
+                <% for(let data of detail.cart.items){%>
+                    <div class="box">
+                        <img src="<%= data.marksheet%>" alt="" srcset="">
+                        <div class="resultdetail">
+                            <p>
+                                Std:<%=data.std%>
+                            </p>
+                            <p>
+                                Result:<%=data.result%>
+                            </p>
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
+             <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
+           
+        </main>
+        <%- include('../includes/end.ejs')%>

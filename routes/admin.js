@@ -11,4 +11,6 @@ router.get('/addmarksheet/:studentid',admincontroller.getaddmarksheet);
 router.post('/postmarksheet',admincontroller.postaddmarksheet);
 router.get('/viewdetail',admincontroller.getid);
 router.post('/viewdata',admincontroller.getstudentdata);
+router.get('/editid/:studentid',admincontroller.geteditprofile);
+router.post('/editdetail',admincontroller.posteditprofile)
 module.exports=router;

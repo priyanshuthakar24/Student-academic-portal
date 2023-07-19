@@ -1,0 +1,51 @@
+<%- include('../includes/head.ejs')%>
+<link rel="stylesheet" href="/css/form.css">
+    </head>
+
+    <body>
+        <main>
+            <div class="header">
+                <h1>
+                    Add New student
+                </h1>
+            </div>
+            <form action="/admin/<% if(editing){%>editdetail<%}else{%>newstudent<%}%>" method="post" class="product-form">
+                <div class="form-control">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" value="<% if (editing) {%><%=product.name %><%}%>">
+                </div>
+                <div class="form-control">
+                    <label for="mobileno">Mobile No</label>
+                    <input type="text" name="mobileno" value="<% if (editing) {%><%=product.mobileno %><%}%>">
+                </div>
+                <div class="form-control">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" value="<% if (editing) {%><%=product.email %><%}%>">
+                </div>
+                <div class="form-control">
+                    <label for="dob">Date of Birth</label>
+                    <% if(editing) {%>
+                        <input type="text" name="dob" value="<% if (editing) {%><%=product.Dob %><%}%>">
+                    <%}else{%>
+                    <input type="date" name="dob">
+                    <%}%>
+                </div>
+                <div class="form-control">
+                    <label for="adrno">Adhar Number</label>
+                    <input type="text" name="adharno" value="<% if (editing) {%><%=product.adharno %><%}%>">
+                </div>
+
+                <div class="form-control">
+                    <label for="xender">Xender</label>
+                    <select name="xender" id="">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <% if (editing){%>
+                <input type="hidden" value="<%= product._id%>" name="studentid">
+                <%}%>
+                <button type="submit">Add Student</button>
+            </form>
+        </main>
+        <%- include('../includes/end.ejs')%>

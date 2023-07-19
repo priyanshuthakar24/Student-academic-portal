@@ -1,0 +1,16 @@
+<%- include('../includes/head.ejs')%>
+    </head>
+
+    <body>
+        <main>
+            <br>
+            <h1 style="text-align: center;">Student Academic Portal</h1>
+            <div class="main_container">
+                <form action="/studentid" method="post" class="search-container">
+                    <input type="text" name="search" placeholder="Enter your Adhar No here...">
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </form>
+            </div>
+
+        </main>
+        <%- include('../includes/end.ejs')%>

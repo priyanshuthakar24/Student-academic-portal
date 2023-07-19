@@ -12,7 +12,7 @@
                                 Xender: <%= detail.xender%> <br><br>
             </div>
             <!-- studentid:<%= detail._id%><br><br> -->
-            <div class="main_marksheet">
+           <div class="main_marksheet">
                 <% for(let data of detail.cart.items){%>
                     <div class="box">
                         <img src="<%= data.marksheet%>" alt="" srcset="">
@@ -27,6 +27,7 @@
                     </div>
                     <%}%>
             </div>
-            <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
+             <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
+           
         </main>
         <%- include('../includes/end.ejs')%>

@@ -9,12 +9,16 @@
             Date of Birth: <%= studentdata.Dob%> <br><br>
             Xender: <%= studentdata.xender%> <br><br>
             studentid:<%= studentdata._id%>
-            <p>hi from mee</p>
+
             <div class="marksheet">
                 <h2 style="text-align: center;">Add marksheet</h2>
                 <input type="hidden" value="<%= studentdata._id%>" name="studentid">
+                <a href="/admin/editid/<%= studentdata._id%>">
+                    <button type="submit"><i class="fa-solid fa-user-pen"></i><br>update Detail</button>
+                    
+                </a>
                 <a href="/admin/addmarksheet/<%= studentdata._id%>">
-                    <button type="submit"><i class='bx bxs-image-add'></i></button>
+                    <button type="submit"><i class='bx bxs-image-add'></i><br>add Marksheet</button>
                 </a>
             </div>
         </main>
