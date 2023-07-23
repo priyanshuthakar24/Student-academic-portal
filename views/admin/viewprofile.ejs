@@ -1,33 +1,92 @@
 <%- include('../includes/head.ejs')%>
+  <link rel="stylesheet" href="/css/viewprofile.css">
     </head>
 
     <body>
+        <%- include('../includes/nav.ejs')%>
         <main>
-            <div class="main_detail">
-                <h1>Student detail</h1>
+            <div class="heading">Student Detail</div>
+            <!-- <div class="main_detail">
                 Name: <%= detail.name%> <br><br>
                     Mobile No: <%= detail.mobileno%> <br><br>
                         Emial: <%= detail.email%> <br><br>
                             Date of Birth: <%= detail.Dob%> <br><br>
                                 Xender: <%= detail.xender%> <br><br>
+            </div> -->
+            <div class="main">
+                <h2>IDENTITY</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <i class="fa fa-pen fa-xs edit"></i> -->
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.name%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.email%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile No</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.mobileno%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.Dob%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Xender</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.xender%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Adhar No</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.adharno%>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <h2 style="text-align: center; font-size: 40px;">Add Marksheet</h2>
             </div>
             <!-- studentid:<%= detail._id%><br><br> -->
-           <div class="main_marksheet">
-                <% for(let data of detail.cart.items){%>
-                    <div class="box">
-                        <img src="<%= data.marksheet%>" alt="" srcset="">
-                        <div class="resultdetail">
-                            <p>
-                                Std:<%=data.std%>
-                            </p>
-                            <p>
-                                Result:<%=data.result%>
-                            </p>
+            <div class="main_marksheet main">
+                <div class="card2">
+                    <% for(let data of detail.cart.items){%>
+                        <div class="box card-body">
+                            <img src="<%= data.marksheet%>" alt="" srcset="">
+                            <div class="resultdetail">
+                                <p>
+                                    Std: <%=data.std%>
+                                </p>
+                                <p>
+                                    Status: <%=data.result%>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <%}%>
+                        <%}%>
+                </div>
             </div>
-             <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
-           
+            <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
+
         </main>
         <%- include('../includes/end.ejs')%>

@@ -1,0 +1,44 @@
+<section id="header">
+    <div class="main-logo">
+        <a href="/"><img src="/img/logo_2.png" alt="" class="logo"></a>
+    </div>
+    <div>
+        <ul id="navbar">
+            <li><a href="/admin/login" style="color: black;">Admin</a></li>
+            <li><a href="/edu/login" style="color: black;">Education</a></li>
+            <% if(userisAuthenticated){%>
+                <li>
+                    <div class="dropdown">
+                        <span>
+                            <i class='bx bx-user bx-flip-horizontal' style='color:#0a0909'></i>
+                        </span>
+                        <div class="dropdown-content">
+                            <p><a href="#" style="text-decoration:none;color:black;">Hi,
+                                </a></p>
+                            <hr />
+                            <p>
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                <button type="submit">Logout</button>
+                            </form>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <%}else{%>
+                    <li id="lg-bag">
+                        <div class="dropdown">
+                            <span><i class='bx bx-user bx-flip-horizontal' style='color:#271a1a'></i></span>
+                            <div class="dropdown-content">
+                                <!-- <p><a href="/signup" style="text-decoration:none;color:black;">Sign Up</a></p> -->
+                                <!-- <hr /> -->
+                                <p><a href="/login" style="text-decoration:none;color:black;">Login</a></p>
+                            </div>
+                        </div>
+                    </li>
+                    <%}%>
+                        <a href="#" id="close"><i class="bx bx-x" style='color:#ed1d1d'></i></a>
+        </ul>
+    </div>
+
+</section>

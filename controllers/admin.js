@@ -1,11 +1,16 @@
+const bcrypt = require('bcryptjs');
 const Student = require('../models/student')
 
 exports.getindex = (req, res, next) => {
     res.render('admin/index', { pagetitle: 'home' });
 }
+
+
 exports.getnewform = (req, res, next) => {
     res.render('admin/addprofile', { pagetitle: 'New student', editing: false });
 }
+
+
 exports.poststudentdata = (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -13,23 +18,42 @@ exports.poststudentdata = (req, res, next) => {
     const dob = req.body.dob;
     const xender = req.body.xender;
     const adrno = req.body.adharno;
-    const data = new Student({ name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender });
-    data.save().then(result => {
-        console.log(result);
-        res.redirect('/admin/index');
+    const password = req.body.password;
+    // console.log(req.user);
+    Student.findOne({ email: email }).then(adminDoc => {
+        if (adminDoc) {
+            res.redirect('/admin/addprofile');
+        }
+        return bcrypt.hash(password, 12)
+            .then(hashedpassword => {
+                const data = new Student({
+                    name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user,
+                    password: hashedpassword
+                });
+                return data.save();
+            }).then(result => {
+                res.redirect('/admin/index');
+            })
     }).catch(err => console.log(err));
+
 };
+
+
 exports.getstudent = (req, res, next) => {
     res.render('admin/searchbyid', { pagetitle: 'Search Student' })
 }
+
 exports.getstudentdetail = (req, res, next) => {
     const studentid = req.body.search;
     console.log(studentid);
-    Student.findOne( {adharno:studentid}).then(studentdata => {
-        if(studentdata){
+    Student.findOne({ adharno: studentid }).then(studentdata => {
+        // const adminid=studentdata.adminId.toString();
+        console.log(studentdata.adminId);
+        console.log(req.user._id);
+        if (studentdata.adminId.toString() === req.user._id.toString()) {
             res.render('admin/updateprofile', { pagetitle: 'Update Profile', studentdata: studentdata });
-        }else{
-            res.render('user/invalidid',{pagetitle:'invalidid'})
+        } else {
+            res.render('user/invalidid', { pagetitle: 'invalidid' })
         }
     });
 }
@@ -63,12 +87,12 @@ exports.getstudentdata = (req, res, next) => {
     const studentid = req.body.search;
     // console.log(studentid);
     Student.findOne({ adharno: studentid }).then(data => {
-        if( data){
+        if (data) {
             console.log(data);
             res.render('admin/viewprofile', { pagetitle: 'All detail', detail: data })
         }
-        else{
-            res.render('user/invalidid', { pagetitle: 'invalid id'})
+        else {
+            res.render('user/invalidid', { pagetitle: 'invalid id' })
         }
     })
 }
@@ -88,16 +112,24 @@ exports.posteditprofile = (req, res, next) => {
     const dob = req.body.dob;
     const xender = req.body.xender;
     const adrno = req.body.adharno;
-    Student.findById(studentid).then(data=>{
-        data.name=name;
-        data.email=email;
-        data.mobileno=mobileno;
-        data.Dob=dob
-        data.xender=xender;
-        data.adharno=adrno;
+    Student.findById(studentid).then(data => {
+        data.name = name;
+        data.email = email;
+        data.mobileno = mobileno;
+        data.Dob = dob
+        data.xender = xender;
+        data.adharno = adrno;
         return data.save();
-    }).then(result=>{
+    }).then(result => {
         console.log("product Updated");
         res.redirect('/admin/index');
-    }).catch(err=>{console.log(err)});
+    }).catch(err => { console.log(err) });
 }
+
+
+
+// const data = new Student({ name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user });
+//     data.save().then(result => {
+//         console.log(result);
+//         res.redirect('/admin/index');
+//     }).catch(err => console.log(err));

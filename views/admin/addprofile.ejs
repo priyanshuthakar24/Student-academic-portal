@@ -1,51 +1,67 @@
 <%- include('../includes/head.ejs')%>
-<link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/form.css">
+
     </head>
 
     <body>
-        <main>
-            <div class="header">
-                <h1>
-                    Add New student
-                </h1>
-            </div>
-            <form action="/admin/<% if(editing){%>editdetail<%}else{%>newstudent<%}%>" method="post" class="product-form">
-                <div class="form-control">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" value="<% if (editing) {%><%=product.name %><%}%>">
+        <%- include('../includes/nav.ejs')%>
+            <main>
+                <div class="header1">
+                    <h1>
+                        Add New student
+                    </h1>
                 </div>
-                <div class="form-control">
-                    <label for="mobileno">Mobile No</label>
-                    <input type="text" name="mobileno" value="<% if (editing) {%><%=product.mobileno %><%}%>">
-                </div>
-                <div class="form-control">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" value="<% if (editing) {%><%=product.email %><%}%>">
-                </div>
-                <div class="form-control">
-                    <label for="dob">Date of Birth</label>
-                    <% if(editing) {%>
-                        <input type="text" name="dob" value="<% if (editing) {%><%=product.Dob %><%}%>">
-                    <%}else{%>
-                    <input type="date" name="dob">
-                    <%}%>
-                </div>
-                <div class="form-control">
-                    <label for="adrno">Adhar Number</label>
-                    <input type="text" name="adharno" value="<% if (editing) {%><%=product.adharno %><%}%>">
-                </div>
+                <form action="/admin/<% if(editing){%>editdetail<%}else{%>newstudent<%}%>" method="post"
+                    class="product-form">
+                    <div class="nice-form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" value="<% if (editing) {%><%=product.name %><%}%>"
+                            placeholder="Enter Your name">
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="mobileno">Mobile No</label>
+                        <input type="tel" name="mobileno" value="<% if (editing) {%><%=product.mobileno %><%}%>"
+                            class="icon-left" placeholder="Your Phone Number">
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" value="<% if (editing) {%><%=product.email %><%}%>"
+                            class="icon-left" placeholder="www.xyz.com">
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="dob">Date of Birth</label>
+                        <% if(editing) {%>
+                            <input type="text" name="dob" value="<% if (editing) {%><%=product.Dob %><%}%>">
+                            <%}else{%>
+                                <input type="date" name="dob">
+                                <%}%>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="adrno">Adhar Number</label>
+                        <input type="text" name="adharno" value="<% if (editing) {%><%=product.adharno %><%}%>"
+                            placeholder="XXXX XXXX XXXX" >
+                    </div>
 
-                <div class="form-control">
-                    <label for="xender">Xender</label>
-                    <select name="xender" id="">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-                <% if (editing){%>
-                <input type="hidden" value="<%= product._id%>" name="studentid">
-                <%}%>
-                <button type="submit">Add Student</button>
-            </form>
-        </main>
-        <%- include('../includes/end.ejs')%>
+                    <div class="nice-form-group">
+                        <label for="xender">Xender</label>
+                        <select name="xender" id="">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" value="<% if (editing) {%><%=product.password %><%}%>"
+                            placeholder="XXXX XXXX XXXX" class="icon-left">
+                    </div>
+                    <% if (editing){%>
+                        <input type="hidden" value="<%= product._id%>" name="studentid">
+                        <%}%>
+                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                            <button class="btn btn-primary" type="submit">
+                                <% if(editing){%>EditStudent<%}else{%> Add Student <%}%>
+                            </button>
+                            <!-- <button type="submit" class="toggle-code">Add Student</button> -->
+                </form>
+            </main>
+            <%- include('../includes/end.ejs')%>

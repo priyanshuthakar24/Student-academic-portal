@@ -2,37 +2,43 @@
     </head>
 
     <body>
+        <%- include('../includes/nav.ejs')%>
         <main>
             <div class="header">
                 <h1>Student academic portal</h1>
             </div>
             <div class="mainbox">
-                <div class="mainbox_box1">
-                   <a href="/admin/addstudent">
-                        <button type="submit">
-                            <i class='bx bxs-user-plus'></i>
-                            <p>New Profile</p>
-                        </button>
-                    </a>
+                <div class="mainbox_box1 card1">
+                    <!-- <div class="card"> -->
+                        <a href="/admin/addstudent">
+
+                            <button type="submit">
+                                <i class="fa-solid fa-user-graduate"></i>
+                                <div class="container">
+                                    <p>New Profile</p>
+                                </div>
+                            </button>
+                        </a>
+                    <!-- </div> -->
                 </div>
-                <div class="mainbox_box1">
+                <div class="mainbox_box1 card1">
                     <a href="/admin/editstudent">
                         <button type="submit">
-                            <i class='bx bxs-edit-alt'></i>
+                            <i class="fa-regular fa-pen-to-square"></i>
                             <p>Update Profile</p>
                         </button>
                     </a>
                 </div>
-                <div class="mainbox_box1">
+                <div class="mainbox_box1 card1">
                     <a href="/admin/viewdetail">
                         <button type="submit">
-                            <i class='bx bxs-user-detail'></i>
+                            <i class="fa-regular fa-id-card"></i>
                             <p>View Profile</p>
                         </button>
                     </a>
                 </div>
             </div>
-           
+
 
         </main>
 

@@ -1,11 +1,19 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;400;700&display=swap');
 body {
     margin: 0;
     padding: 0;
+    /* background: #c2d4d4; */
+    background: #ddca7e;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Roboto Slab';
+    /* outline: none; */
+    /* background: #b2e0df; */
 }
 
 .header {
     text-align: center;
+    margin: 20px;
 }
 
 .mainbox {
@@ -21,9 +29,14 @@ body {
     align-items: center;
 }
 .mainbox_box1
- button{
+button{
     padding: 50px;
     font-size: 20px;
+    border:none;
+    outline: none;
+    border-radius: 10px;
+    background: #e0e0e0;
+    /* background: #25313c; */
 }
 .mainbox_box1 button i {
     font-size: 70px;
@@ -39,17 +52,22 @@ body {
 }
 .main_container button {
     font-size: 25px;
+    outline: none;
 }
 .marksheet{
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
 }
-.marksheet button{
+
+/* .marksheet button{
     padding: 50px;
     font-size: 20px;
 }
 .marksheet button i{
     font-size: 70px;
-}
+} */
 .main_detail{
     font-size: 20px;
     padding-left: 40px;
@@ -70,4 +88,22 @@ body {
 .main_marksheet .resultdetail{
     text-align: center;
     font-size: 1.5rem;
+    padding-bottom: 30px;
 }
+
+.card1 {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .card1:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
+  }

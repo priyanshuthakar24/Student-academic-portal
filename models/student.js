@@ -25,7 +25,15 @@ const studentschema = new Schema({
         type: String,
         required: true
     },
-
+    password: {
+        type: String,
+        required: true
+    },
+    adminId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Admin',
+        required: true
+    },
     cart: {
         items: [{
             marksheet: {

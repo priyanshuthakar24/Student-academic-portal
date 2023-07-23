@@ -2,16 +2,24 @@
     </head>
 
     <body>
-        <main>
-            <h1>Student Academic Portal</h1>
-            <div class="mainbox_box1">
-                <a href="/viewdetail">
-                    <button type="submit">
-                        <i class='bx bxs-user-detail'></i>
-                        <p>View Profile</p>
-                    </button>
-                </a>
-            </div>
-           
-        </main>
-        <%- include('../includes/end.ejs')%>
+        <%- include('../includes/unav.ejs')%>
+            <main>
+                <div class="header">
+                    <h1>Student Academic Portal</h1>
+                </div>
+                <div class="mainbox">
+                    <div class="mainbox_box1 card1">
+                        <form action="/viewdetail" method="post">
+                            <!-- <a href="/viewdetail"> -->
+                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                            <button type="submit">
+                                <i class="fa-regular fa-id-card"></i>
+                                <p>View Profile</p>
+                            </button>
+                            <!-- </a> -->
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+            <%- include('../includes/end.ejs')%>
