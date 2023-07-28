@@ -4,31 +4,49 @@
 
     <body>
         <%- include('../includes/nav.ejs')%>
-        <main>
-            <div class="header">
-                <h1>Add marksheet</h1>
-            </div>
-            <form action="/admin/postmarksheet" method="post" class="product-form">
-                <div class="nice-form-group">
-                    <label for="marksheet">Marksheet link</label>
-                    <input type="text" name="marksheetlink">
+            <main>
+                <div class="header1">
+                    <h1>Add Marksheet</h1>
                 </div>
-                <div class="nice-form-group">
-                    <label for="std">Std</label>
-                    <input type="number" name="std">
-                </div>
-                <div class="nice-form-group">
-                    <label for="result">Result</label>
-                    <select name="result" id="">
-                        <option value="Pass">Pass</option>
-                        <option value="Fail">Fail</option>
-                    </select>
-                </div>
-                <input type="hidden" name="studentid" value="<%= studentdata._id%>">
-                <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                <button type="submit" class="btn btn-primary">
-                    Add Marksheet
-                </button>
-            </form>
-        </main>
-        <%- include('../includes/end.ejs')%>
+                <form  action="/admin/postmarksheet" method="post" class="product-form" enctype="multipart/form-data">
+                    <div class="nice-form-group">
+                        <label for="marksheet">Marksheet link</label>
+                        <input type="file" id="file" name="marksheetlink">
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="std">Std</label>
+                        <input type="number" name="std">
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="result">Result</label>
+                        <select name="result" id="">
+                            <option value="Pass">Pass</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="studentid" value="<%= studentdata._id%>">
+                    <button type="submit" class="btn btn-primary" onsubmit="submit()">
+                        <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                        <!-- <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>"> -->
+                        Add Marksheet
+                    </button>
+                </form>
+            </main>
+            <!-- <script>
+                let file;
+                document.getElementById('file').addEventListener("change", (e) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(e.target.files[0]);
+                    reader.onloadend = () => { file = reader.result };
+                    console.log(reader.result)
+                });
+                const submit = (e) => {
+                    e.preventDefault();
+                    fetch('http://localhost:3003/admin/postmarksheet', {
+                        marksheet: file,
+                        std: std,
+                        result: result
+                    })
+                }
+            </script> -->
+            <%- include('../includes/end.ejs')%>

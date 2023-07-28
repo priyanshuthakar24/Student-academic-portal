@@ -1,0 +1,149 @@
+<%- include('../includes/head.ejs')%>
+ <!-- not in use  -->
+<style>
+    .wrapper {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1400px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 50px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    .modal-content {
+        margin: auto;
+        text-align: center;
+    }
+
+    .modal-image {
+        display: inline-block;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #000;
+        display: block;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .gallery {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin: 100px 10px;
+    }
+
+    .gallery img {
+        cursor: pointer;
+    }
+
+    .boxOfimages .big-img input {
+        display: block;
+        margin: 0 auto;
+        width: 290px;
+        margin-bottom: 10px;
+    }
+
+
+    .boxOfsmallImgs {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .boxOfsmallImgs img {
+        width: 70px;
+        opacity: 0.7;
+        transition: opacity 0.4s ease;
+        margin: 2px;
+    }
+
+
+    .boxOfsmallImgs img:hover {
+        opacity: 1;
+    }
+    
+
+    .boxOftext {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        font-size: 0.8rem;
+    }
+
+    .boxOftext h2 {
+        padding: 20px 10px;
+    }
+
+    .boxOftext p {
+        padding: 10px 10px;
+    }
+</style>
+
+</head>
+    
+
+<body>
+    <!-- <%- include('../includes/unav.ejs')%> -->
+    <main class="main wrapper">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="" id="modal-image" />
+        </div>
+    </div>
+    <section class="gallery">
+        <div class="boxOfimages">
+            <div class="big-img">
+                <input type="image" id="imageBox1"
+                    src="https://cdn.pixabay.com/photo/2013/04/02/18/58/sculpture-99484_960_720.jpg" alt="">
+            </div>
+            <div class="boxOfsmallImgs">
+                <img src="https://cdn.pixabay.com/photo/2013/04/02/18/58/sculpture-99484_960_720.jpg"
+                    onclick="galleryFunction1(this)" alt="">
+                <img src="https://cdn.pixabay.com/photo/2016/09/07/16/19/pile-1651945_960_720.jpg"
+                    onclick="galleryFunction1(this)" alt="">
+
+                <img src="https://cdn.pixabay.com/photo/2018/05/11/08/11/pet-3389729_960_720.jpg"
+                    onclick="galleryFunction1(this)" alt="">
+            </div>
+        </div>
+        <div class="boxOftext">
+            <h2>“Dotyk burzy” / “Touch of Storm”</h2>
+            <p>rzeźba / sculpture gips patynowany, granit / patinated plaster, granite 100 x 28 x 28 cm 2020r.
+            </p>
+            <p>dostępna</p>
+        </div>
+    </section>
+    <script src="/js/image.js"></script>
+    <%- include('../includes/end.ejs')%>

@@ -1,35 +1,52 @@
 <%- include('../includes/head.ejs')%>
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/newlogin.css">
+
+    <head>
+
     </head>
 
     <body>
-        <main>
-            <section class="forms-section">
-                <h1 class="section-title">Education Login </h1>
-                <div class="forms">
-                    <div class="form-wrapper is-active">
-                        <button type="button" class="switcher switcher-login">
-                            Login
-                            <span class="underline"></span>
-                        </button>
+        <!-- <%- include('../includes/nav.ejs')%> -->
+        <div class="header1" style="color: white;">Education Login</div>
+        <div class="login-wrap">
+            <div class="login-html">
+                <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log
+                    IN</label>
+                <input id="tab-2" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+                <div class="login-form">
+                    <div class="sign-in-htm">
+                        <div class="message">
+                            <% if(errormessage){%>
+                                <%= errormessage%>
+                                    <%}%>
+                        </div>
                         <form class="form form-login" action="/edu/login" method="post">
-                            <fieldset>
-                                <legend>Please, enter your email and password for login.</legend>
-                                <div class="input-block">
-                                    <label for="login-email">E-mail</label>
-                                    <input id="login-email" type="email" name="email" required>
-                                </div>
-                                <div class="input-block">
-                                    <label for="login-password">Password</label>
-                                    <input id="login-password" type="password" name="password" required>
-                                </div>
-                            </fieldset>
-                            <button type="submit" class="btn-login">
+                            <div class="group">
+                                <label for="user" class="label">Email</label>
+                                <input id="user" type="email" class="input" name="email">
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="pass" type="password" class="input" data-type="password" name="password">
+                            </div>
+                            <div class="group">
+                                <input id="check" type="checkbox" class="check" checked>
+                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                            </div>
+                            <div class="group">
+                                <!-- <button type="submit"> -->
                                 <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                Login</button>
-                        </form>
+                                <input type="submit" class="button" value="Log In">
+                                <!-- </button> -->
+                            </div>
+                            <!-- <div class="hr"></div> -->
+
                     </div>
+                    </form>
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
+
+
         <%- include('../includes/end.ejs')%>

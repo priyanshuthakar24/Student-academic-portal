@@ -1,0 +1,138 @@
+<%- include('../includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/viewprofile.css">
+    </head>
+
+    <body>
+        <section id="header">
+            <div class="main-logo">
+                <a href="/"><img src="/img/logo_2.png" alt="" class="logo"></a>
+            </div>
+            <div>
+                <ul id="navbar">
+                    <li><a href="/edu/index" style="color: rgb(238, 16, 16);">Home</a></li>
+                </ul>
+            </div>
+
+        </section>
+
+        <main>
+            <div class="heading">Student Detail</div>
+            <!-- <div class="main_detail">
+                    Name: <%= detail.name%> <br><br>
+                        Mobile No: <%= detail.mobileno%> <br><br>
+                            Emial: <%= detail.email%> <br><br>
+                                Date of Birth: <%= detail.Dob%> <br><br>
+                                    Xender: <%= detail.xender%> <br><br>
+                </div> -->
+            <div class="main">
+                <h2>IDENTITY</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <i class="fa fa-pen fa-xs edit"></i> -->
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.name%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.email%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile No</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.mobileno%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.Dob%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Xender</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.xender%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Adhar No</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.adharno%>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- studentid:<%= detail._id%><br><br> -->
+            <div class="wrapper">
+                <div id="myModal" class="modal">
+                    <div class="modal-content1">
+                        <div class="backdrop">
+                            <div class="popup">
+                                <img src="" class="popup-image" id="modal-image" />
+                            </div>
+                        </div>
+                        <div class="close"><i class="fa-solid fa-circle-xmark"></i></div>
+                    </div>
+                </div>
+            </div>
+            <h2 style="text-align: center; font-size: 40px;"> Marksheet</h2>
+            <div class="main_marksheet main">
+                <% if (detail.cart.items.length> 0){%>
+                    <div class="card2">
+                        <% for(let data of detail.cart.items){%>
+                            <!-- <div class="box card-body"> -->
+                            <div class="card" style="width: 18rem;">
+                                    <img src="/<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
+                                        onclick="resetImg(event)">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Std: <%=data.std%>
+                                        </h5>
+                                        <p class="card-text">Status: <%=data.result%>
+                                        </p>
+                                        <form action="/edu/cart-delete-item" method="post">
+                                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                            <input type="hidden" value="<%=data.std %>" name="productId">
+                                            <input type="hidden" value="<%=detail.adharno %>" name="adharno">
+                                            <button type="submit" class="btn btn-primary">Delete</button>
+                                        </form>
+                                        <!-- <a href="#" class="btn btn-primary">Delete</a> -->
+                                    </div>
+                                <!-- </div> -->
+                            </div>
+                            <!--    <img src="<%= data.marksheet%>" alt="" srcset="" id="imageBox1"
+                                    onclick="resetImg(event)">
+                                <div class="resultdetail">
+                                    <p>
+                                        Std: <%=data.std%>
+                                    </p>
+                                    <p>
+                                        Status: <%=data.result%>
+                                    </p>
+                                </div>-->
+                            <%}%>
+                    </div>
+                    <%}else{%>
+                        <div class="card2">
+                            <p>No marksheet ..</p>
+                        </div>
+                        <%}%>
+            </div>
+        </main>
+        <script src="/js/image.js"></script>
+        <%- include('../includes/end.ejs')%>

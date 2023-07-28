@@ -1,26 +1,39 @@
 <%- include('../includes/head.ejs')%>
-</head>
+    </head>
 
-<body>
+    <body>
         <%- include('../includes/enav.ejs')%>
-        <main>
-            <div class="header">
-                <h1>Student academic portal</h1>
-            </div>
-            <div class="mainbox">
-                <div class="mainbox_box1 card1">
-                    <!-- <div class="card"> -->
+            <main>
+                <div class="header">
+                    <h1>Student academic portal</h1>
+                </div>
+                <div class="mainbox">
+                    <div class="mainbox_box1 card1">
+                        <!-- <div class="card"> -->
                         <a href="/edu/addinstitute">
 
                             <button type="submit">
                                 <i class="fa-solid fa-school"></i>
                                 <div class="container">
-                                    <p>New Profile</p>
+                                    <p>New Institute</p>
                                 </div>
                             </button>
                         </a>
-                    <!-- </div> -->
+                        <!-- </div> -->
+                    </div>
+                    <div class="mainbox_box1 card1">
+                        <!-- <div class="card"> -->
+                        <a href="/edu/searchid">
+
+                            <button type="submit">
+                                <i class="fa-regular fa-id-card"></i>
+                                <div class="container">
+                                    <p>View Profile</p>
+                                </div>
+                            </button>
+                        </a>
+                        <!-- </div> -->
+                    </div>
                 </div>
-                </div>
-        </main>
-        <%- include('../includes/end.ejs')%>
+            </main>
+            <%- include('../includes/end.ejs')%>

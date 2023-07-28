@@ -65,7 +65,9 @@ input[type="text"] {
 input[type="text"]::placeholder {
   color: #ddca7e;
 }
-
+.enter_aadhar{
+  color: #ddca7e;
+}
 #s-cover {
   width: 1px;
   padding-left: 35px;
@@ -168,10 +170,15 @@ button span:after {
             <div class="header">
               <h1>Student Academic Portal</h1>
             </div>
+            <div class="message" style="text-align: center; font-size: 30px; color:whitesmoke;">
+              <% if(errormessage){%>
+                  <%= errormessage%>
+                      <%}%>
+          </div>
             <div id="cover">
-                <form method="post" action="/admin/studentid">
+              <form method="post" action="/admin/studentid">
                   <div class="tb">
-                    <div class="td"><input type="text" placeholder="Enter Adhar ID" required name="search"></div>
+                    <div class="td"><input type="text" class="enter_aadhar"  placeholder="Enter Adhar ID" required name="search"></div>
                     <div class="td" id="s-cover">
                       <button type="submit">
                         <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">

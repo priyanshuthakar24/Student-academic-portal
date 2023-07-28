@@ -61,4 +61,11 @@ studentschema.statics.addtocart = function (items) {
     this.cart = updatedCart;
     return this.save();
 }
+studentschema.methods.removefromCart = function (productId) {
+    const updatedCartItems = this.cart.items.filter(item => {
+        return item.std.toString() !== productId;
+    });
+    this.cart.items = updatedCartItems;
+    return this.save();
+}
 module.exports = mongoose.model('Students', studentschema);

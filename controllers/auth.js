@@ -3,46 +3,69 @@ const Admin = require('../models/admin');
 const Education = require('../models/edu');
 const Student = require('../models/student');
 
+
+
 exports.getuserLogin = (req, res, next) => {
-    res.render('auth/userlogin', { pagetitle: 'Login', path: '/login' });
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+    res.render('auth/newlogin', { pagetitle: 'Login', path: '/login', errormessage: message });
 }
+
 exports.postuserLogin = (req, res, next) => {
-    const email = req.body.email;
+    const email = req.body.adharno;
     const password = req.body.password;
-    Student.findOne({ email: email }).then(data => {
+    Student.findOne({ adharno: email }).then(data => {
         if (!data) {
+            req.flash('error', 'Invalid email or password ');
             return res.redirect('/login');
-        } bcrypt.compare(password, data.password).then(doMatch => {
-            if (doMatch) {
-                req.session.isLoggedInuser = true;
-                req.session.isLoggedInedu = false;
-                req.session.isLoggedIn = false;
-                req.session.user = data;
-                return req.session.save(err => {
+        }
+        else {
+            bcrypt.compare(password, data.password).then(doMatch => {
+                if (doMatch) {
+                    req.session.isLoggedInuser = true;
+                    req.session.isLoggedInedu = false;
+                    req.session.isLoggedIn = false;
+                    req.session.user = data;
+                    return req.session.save(err => {
+                        console.log(err);
+                        res.redirect('/');
+                    });
+                }
+                req.flash('err', 'Invalid email or password');
+                res.redirect('/login');
+            })
+                .catch(err => {
                     console.log(err);
-                    res.redirect('/');
+                    res.redirect('/login');
                 });
-            }
-            res.redirect('/login');
-        }).catch(err => {
-            console.log(err);
-            res.redirect('/login');
-        });
+        }
 
     }).catch(err => { console.log(err) });
 }
 
 
-exports.getAdminLogin = (req, res, next) => {
-    res.render('auth/adminlogin', { pagetitle: 'Login', path: '/admin/login' });
-}
 
+
+exports.getAdminLogin = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+    res.render('auth/adminlogin', { pagetitle: 'Login', path: '/admin/login', errormessage: message });
+}
 
 exports.postAdminLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     Admin.findOne({ email: email }).then(data => {
         if (!data) {
+            req.flash('error', 'Invalid email or password ');
             return res.redirect('/admin/login');
         }
         bcrypt.compare(password, data.password).then(doMatch => {
@@ -56,6 +79,7 @@ exports.postAdminLogin = (req, res, next) => {
                     res.redirect('/admin/index');
                 });
             }
+            req.flash('error', 'Invalid email or password ');
             res.redirect('/admin/login');
         }).catch(err => {
             console.log(err);
@@ -71,15 +95,21 @@ exports.postAdminLogin = (req, res, next) => {
 
 
 exports.getEduLogin = (req, res, next) => {
-    res.render('auth/edulogin', { pagetitle: 'Login', path: '/admin/login' });
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+    res.render('auth/edulogin', { pagetitle: 'Login', path: '/admin/login', errormessage: message });
 }
-
 
 exports.postEduLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     Education.findOne({ email: email }).then(data => {
         if (!data) {
+            req.flash('error', 'Invalid email or password ');
             res.redirect('/edu/login');
         }
         return bcrypt.compare(password, data.password)
@@ -94,6 +124,7 @@ exports.postEduLogin = (req, res, next) => {
                         res.redirect('/edu/index');
                     });
                 }
+                req.flash('error', 'Invalid email or password ');
                 res.redirect('/edu/login');
             }).catch(err => {
                 console.log(err);
@@ -103,6 +134,12 @@ exports.postEduLogin = (req, res, next) => {
     }).catch(err => { console.log(err) });
 }
 
+
+
+
+
+
+// logout section 
 exports.postLogout = (req, res, next) => {
     req.session.destroy((err) => {
         console.log(err);

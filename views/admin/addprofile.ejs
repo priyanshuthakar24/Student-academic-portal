@@ -8,7 +8,8 @@
             <main>
                 <div class="header1">
                     <h1>
-                        Add New student
+                        <% if(editing){ %> Edit Student Detail <%}else{%> Add New student <%}%>
+                                    
                     </h1>
                 </div>
                 <form action="/admin/<% if(editing){%>editdetail<%}else{%>newstudent<%}%>" method="post"
@@ -37,13 +38,13 @@
                                 <%}%>
                     </div>
                     <div class="nice-form-group">
-                        <label for="adrno">Adhar Number</label>
+                        <label for="adrno">Aadhaar Number</label>
                         <input type="text" name="adharno" value="<% if (editing) {%><%=product.adharno %><%}%>"
-                            placeholder="XXXX XXXX XXXX" >
+                            placeholder="XXXX XXXX XXXX">
                     </div>
 
                     <div class="nice-form-group">
-                        <label for="xender">Xender</label>
+                        <label for="xender">Gender</label>
                         <select name="xender" id="">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>

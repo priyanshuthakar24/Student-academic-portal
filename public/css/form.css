@@ -143,6 +143,9 @@ table {
     font-family: 'robot';
     font-family: 'Roboto Slab';
 }
+#header{
+    background: #f3f0e7;
+}
 .nice-form-group {
     --nf-input-size: 1rem;
     --nf-input-font-size: calc(var(--nf-input-size)*0.875);

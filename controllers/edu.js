@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Admin = require('../models/admin');
+const Student = require('../models/student');
 exports.getIndex = (req, res, next) => {
     res.render('education/index', { pagetitle: 'edu Home' });
 }
@@ -33,3 +34,43 @@ exports.postinstitute = (req, res, next) => {
     }).catch(err => console.log(err));
 };
 
+exports.getsearchid=(req,res,next)=>{
+    // const searchid=req.body.search;
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+    // res.render('admin/searchid', { pagetitle: 'searchid' })
+    res.render('education/searchid',{pagetitle:'delet marksheet', errormessage: message});
+}
+exports.postsearchid=(req,res,next)=>{
+    const studentid = req.body.search;
+    // console.log(studentid);
+    Student.findOne({ adharno: studentid }).then(data => {
+        if (data) {
+            console.log(data);
+            res.render('education/deletemarksheet', { pagetitle: 'All detail', detail: data })
+        }
+        else {
+            req.flash('error', 'Id Dose not Found');
+            res.redirect('/edu/searchid');
+        }
+    })
+}
+exports.postCartDeleteProduct = (req, res, next) => {
+    const prodId = req.body.productId;
+    const adharno=req.body.adharno;
+    console.log(prodId);
+    Student.findOne({adharno:adharno}).then(data=>{
+        const updatedCartItems = data.cart.items
+        updatedCartItems.filter(item => {
+            return item.std !== prodId;
+        });
+        data.cart.items = updatedCartItems;
+        return data.save()
+        }).then(result=>{
+        res.redirect('/edu/index');
+    });
+    };

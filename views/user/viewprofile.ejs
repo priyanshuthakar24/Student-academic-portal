@@ -9,14 +9,13 @@
             </div>
             <div>
                 <ul id="navbar">
-                    <li><a href="/" style="color: rgb(238, 16, 16);" >Home</a></li>
+                    <li><a href="/" style="color: rgb(238, 16, 16);">Home</a></li>
                 </ul>
             </div>
 
         </section>
         <!-- <%- include('../includes/unav.ejs')%> -->
 
-        <!-- marksheet:<%= detail.cart.items[0].marksheet%> -->
         <main>
             <div class="heading">Student Detail</div>
             <!-- <div class="main_detail">
@@ -79,25 +78,55 @@
                         </table>
                     </div>
                 </div>
-                <h2 style="text-align: center; font-size: 40px;"> Marksheet</h2>
             </div>
             <!-- studentid:<%= detail._id%><br><br> -->
-            <div class="main_marksheet main">
-                <div class="card2">
-                    <% for(let data of detail.cart.items){%>
-                        <div class="box card-body">
-                            <img src="<%= data.marksheet%>" alt="" srcset="">
-                            <div class="resultdetail">
-                                <p>
-                                    Std: <%=data.std%>
-                                </p>
-                                <p>
-                                    Status: <%=data.result%>
-                                </p>
+            <div class="wrapper">
+                <div id="myModal" class="modal">
+                    <div class="modal-content1">
+                        <div class="backdrop">
+                            <div class="popup">
+                                <img src="" class="popup-image" id="modal-image" />
                             </div>
                         </div>
-                        <%}%>
+                        <div class="close"><i class="fa-solid fa-circle-xmark"></i></div>
+                    </div>
                 </div>
             </div>
+            <h2 style="text-align: center; font-size: 40px;"> Marksheet</h2>
+            <div class="main_marksheet main">
+                <% if (detail.cart.items.length> 0){%>
+                    <div class="card2">
+                        <% for(let data of detail.cart.items){%>
+                            <!-- <div class="box card-body"> -->
+                            <div class="card" style="width: 18rem;">
+                                    <img src="<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
+                                        onclick="resetImg(event)">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Std: <%=data.std%>
+                                        </h5>
+                                        <p class="card-text">Status: <%=data.result%>
+                                        </p>
+                                    </div>
+                                <!-- </div> -->
+                            </div>
+                            <!--    <img src="<%= data.marksheet%>" alt="" srcset="" id="imageBox1"
+                                    onclick="resetImg(event)">
+                                <div class="resultdetail">
+                                    <p>
+                                        Std: <%=data.std%>
+                                    </p>
+                                    <p>
+                                        Status: <%=data.result%>
+                                    </p>
+                                </div>-->
+                            <%}%>
+                    </div>
+                    <%}else{%>
+                        <div class="card2">
+                            <p>No marksheet ..</p>
+                        </div>
+                        <%}%>
+            </div>
         </main>
+        <script src="/js/image.js"></script>
         <%- include('../includes/end.ejs')%>

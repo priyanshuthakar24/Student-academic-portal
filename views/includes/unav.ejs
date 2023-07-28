@@ -13,7 +13,8 @@
                             <i class='bx bx-user bx-flip-horizontal' style='color:#0a0909'></i>
                         </span>
                         <div class="dropdown-content">
-                            <p><a href="#" style="text-decoration:none;color:black;">Hi,
+                            <p><a href="#" style="text-decoration:none;color:black;">
+                                    <%= name%>
                                 </a></p>
                             <hr />
                             <p>
@@ -27,14 +28,15 @@
                 </li>
                 <%}else{%>
                     <li id="lg-bag">
-                        <div class="dropdown">
+                        <a href="/login" style="text-decoration:none;color:black;">Login</a>
+                        <!-- <div class="dropdown">
                             <span><i class='bx bx-user bx-flip-horizontal' style='color:#271a1a'></i></span>
                             <div class="dropdown-content">
-                                <!-- <p><a href="/signup" style="text-decoration:none;color:black;">Sign Up</a></p> -->
-                                <!-- <hr /> -->
-                                <p><a href="/login" style="text-decoration:none;color:black;">Login</a></p>
+                                <p><a href="/signup" style="text-decoration:none;color:black;">Sign Up</a></p>
+                                <hr />
+                                <p></p>
                             </div>
-                        </div>
+                        </div> -->
                     </li>
                     <%}%>
                         <a href="#" id="close"><i class="bx bx-x" style='color:#ed1d1d'></i></a>

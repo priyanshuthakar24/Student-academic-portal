@@ -1,25 +1,74 @@
 <%- include('../includes/head.ejs')%>
-    </head>
+<style>
+  #header{
+    position: relative;
+  }
+</style>
+  </head>
 
-    <body>
-        <%- include('../includes/unav.ejs')%>
-            <main>
-                <div class="header">
-                    <h1>Student Academic Portal</h1>
-                </div>
-                <div class="mainbox">
-                    <div class="mainbox_box1 card1">
-                        <form action="/viewdetail" method="post">
-                            <!-- <a href="/viewdetail"> -->
-                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                            <button type="submit">
-                                <i class="fa-regular fa-id-card"></i>
-                                <p>View Profile</p>
-                            </button>
-                            <!-- </a> -->
-                        </form>
-                    </div>
-                </div>
+  <body>
+    <%- include('../includes/unav.ejs')%>
+      <main>
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="true">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/img/banner5.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="/img/banner4.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="/img/banner2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="/img/banner3.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="/img/banner6.jpg" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="header">
+          <h1>Student Academic Portal</h1>
+        </div>
 
-            </main>
-            <%- include('../includes/end.ejs')%>
+        <!-- End Bootstrap Slider BODY section -->
+        <!-- main button funcationaly  -->
+        <div class="mainbox">
+          <div class="mainbox_box1 card1">
+            <form action="/viewdetail" method="post">
+              <!-- <a href="/viewdetail"> -->
+              <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+              <button type="submit">
+                <i class="fa-regular fa-id-card"></i>
+                <p>View Profile</p>
+              </button>
+              <!-- </a> -->
+            </form>
+          </div>
+          <div class="mainbox_box1 card1">
+            <form action="/viewdeta" method="post">
+              <!-- <a href="/viewdetail"> -->
+              <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+              <button type="submit">
+                <i class="fa-solid fa-file-pen"></i>
+                <p>Request Document</p>
+              </button>
+              <!-- </a> -->
+            </form>
+          </div>
+        </div>
+
+      </main>
+      <script src="/js/slider.js"></script>
+      <%- include('../includes/end.ejs')%>

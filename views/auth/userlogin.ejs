@@ -1,8 +1,7 @@
 <%- include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/login.css">
 
-    <head>
-
+<!-- not in use  -->
     </head>
 
     <body>
@@ -17,15 +16,18 @@
                         </button>
                         <form class="form form-login" action="/login" method="post">
                             <fieldset>
-                                <legend>Please, enter your email and password for login.</legend>
-                                <div class="input-block">
-                                    <label for="login-email">E-mail</label>
-                                    <input id="login-email" type="email" name="email" required>
-                                </div>
-                                <div class="input-block">
-                                    <label for="login-password">Password</label>
-                                    <input id="login-password" type="password" name="password" required>
-                                </div>
+                                <% if(errormessage){%>
+                                    <%= errormessage%>
+                                        <%}%>
+                                            <legend>Please, enter your email and password for login.</legend>
+                                            <div class="input-block">
+                                                <label for="login-email">Adhar No</label>
+                                                <input id="login-email" type="number" name="adharno" required>
+                                            </div>
+                                            <div class="input-block">
+                                                <label for="login-password">Password</label>
+                                                <input id="login-password" type="password" name="password" required>
+                                            </div>
                             </fieldset>
                             <button type="submit" class="btn-login">
                                 <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
