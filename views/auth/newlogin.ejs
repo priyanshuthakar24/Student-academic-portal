@@ -24,11 +24,13 @@
                         <form class="form form-login" action="/login" method="post">
                             <div class="group">
                                 <label for="user" class="label">Adhar No</label>
-                                <input id="user" type="number" class="input" name="adharno">
+                                <input id="user" type="number" class="input" name="adharno"
+                                    value="<%= olddata.adharno%>">
                             </div>
                             <div class="group">
                                 <label for="pass" class="label">Password</label>
-                                <input id="pass" type="password" class="input" data-type="password" name="password">
+                                <input id="pass" type="password" class="input" data-type="password" name="password"
+                                    value="<%= olddata.password%>">
                             </div>
                             <div class="group">
                                 <input id="check" type="checkbox" class="check" checked>

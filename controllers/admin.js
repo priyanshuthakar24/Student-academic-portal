@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
-const Student = require('../models/student')
+const Student = require('../models/student');
+const { validationResult } = require('express-validator');
 
 exports.getindex = (req, res, next) => {
     res.render('admin/index', { pagetitle: 'home' });
@@ -7,7 +8,14 @@ exports.getindex = (req, res, next) => {
 
 
 exports.getnewform = (req, res, next) => {
-    res.render('admin/addprofile', { pagetitle: 'New student', editing: false });
+    const editMode = req.query.edit;
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null
+    }
+    res.render('admin/addprofile', { pagetitle: 'New student', editing: editMode, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } });
 }
 
 
@@ -19,12 +27,16 @@ exports.poststudentdata = (req, res, next) => {
     const xender = req.body.xender;
     const adrno = req.body.adharno;
     const password = req.body.password;
-    // console.log(req.user);
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+        console.log(xender);
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: false, errormessage: errors.array()[0].msg, olddata: { name: name, mobileno: mobileno, dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
+    }
+    console.log(req.user);
     Student.findOne({ email: email }).then(adminDoc => {
-        if (adminDoc) {
-            res.redirect('/admin/addprofile');
-        }
-        return bcrypt.hash(password, 12)
+
+        bcrypt.hash(password, 12)
             .then(hashedpassword => {
                 const data = new Student({
                     name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user,
@@ -74,8 +86,15 @@ exports.getstudentdetail = (req, res, next) => {
 
 exports.getaddmarksheet = (req, res, next) => {
     const studentid = req.params.studentid;
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null
+    }
     Student.findById(studentid).then(data => {
-        res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data });
+        console.log(data._id);
+        res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data, errormessage: message, olddata: { marksheet: "", std: "", result: "Pass", studentid: data._id } });
     })
     // console.log(studentid);
 }
@@ -86,6 +105,10 @@ exports.postaddmarksheet = (req, res, next) => {
     const std = req.body.std;
     const result = req.body.result;
     const marksheet = marksheetlink.path;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: marksheet, std: std, result: result, studentid: studentid } })
+    }
     Student.findById(studentid).then(data => {
         const updatedCartItems = [...data.cart.items];
         updatedCartItems.push({ marksheet: marksheet, std: std, result: result });
@@ -145,8 +168,14 @@ exports.getstudentdata = (req, res, next) => {
 exports.geteditprofile = (req, res, next) => {
     const editMode = req.query.edit;
     const studentid = req.params.studentid;
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null
+    }
     Student.findById(studentid).then(data => {
-        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true })
+        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
     })
 }
 exports.posteditprofile = (req, res, next) => {
@@ -157,18 +186,35 @@ exports.posteditprofile = (req, res, next) => {
     const dob = req.body.dob;
     const xender = req.body.xender;
     const adrno = req.body.adharno;
-    Student.findById(studentid).then(data => {
-        data.name = name;
-        data.email = email;
-        data.mobileno = mobileno;
-        data.Dob = dob
-        data.xender = xender;
-        data.adharno = adrno;
-        return data.save();
-    }).then(result => {
-        console.log("product Updated");
-        res.redirect('/admin/index');
-    }).catch(err => { console.log(err) });
+    const password = req.body.password;
+    const errors = validationResult(req);
+    let pass;
+    if (!errors.isEmpty()) {
+        console.log(xender);
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: true, errormessage: errors.array()[0].msg, product: { name: name, mobileno: mobileno, Dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
+    } else {
+        Student.findById(studentid).then(data => {
+            pass = data;
+            return bcrypt.hash(password, 12)
+
+            console.log(hashedpassword);
+            // data.password=hashedpassword;
+        }).then(hashedpassword => {
+            pass.name = name;
+            pass.email = email;
+            pass.mobileno = mobileno;
+            pass.Dob = dob
+            pass.xender = xender;
+            pass.adharno = adrno;
+            pass.password = hashedpassword;
+            return pass.save();
+        }).then(result => {
+            console.log("product Updated");
+            res.redirect('/admin/index');
+        }).catch(err => { console.log(err) });
+        // console.log(hashedpassword);
+        // data.password = hashedpassword
+    }
 }
 
 

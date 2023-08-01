@@ -1,5 +1,11 @@
 <%- include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/form.css">
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            display: none;
+        }
+    </style>
     </head>
 
     <body>
@@ -8,28 +14,37 @@
                 <div class="header1">
                     <h1>Add Marksheet</h1>
                 </div>
-                <form  action="/admin/postmarksheet" method="post" class="product-form" enctype="multipart/form-data">
-                    <div class="nice-form-group">
-                        <label for="marksheet">Marksheet link</label>
-                        <input type="file" id="file" name="marksheetlink">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="std">Std</label>
-                        <input type="number" name="std">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="result">Result</label>
-                        <select name="result" id="">
-                            <option value="Pass">Pass</option>
-                            <option value="Fail">Fail</option>
-                        </select>
-                    </div>
-                    <input type="hidden" name="studentid" value="<%= studentdata._id%>">
-                    <button type="submit" class="btn btn-primary" onsubmit="submit()">
-                        <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                        <!-- <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>"> -->
-                        Add Marksheet
-                    </button>
+                <form action="/admin/postmarksheet" method="post" class="product-form" enctype="multipart/form-data">
+                    <% if(errormessage){%>
+                        <%= errormessage%>
+                            <%}%>
+
+                                <div class="nice-form-group">
+                                    <label for="marksheet">Marksheet link</label>
+                                    <input type="file" id="file" name="marksheetlink" required
+                                        value="<%= olddata.marksheet%>">
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="std">Std</label>
+                                    <input type="number" name="std" min="1" required value="<%= olddata.std%>">
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="result">Result</label>
+                                    <select name="result" id="">
+                                        <option value="<%= olddata.result%>">
+                                            <%= olddata.result%>
+                                        </option>
+                                        <option value="<%= olddata.result === 'Fail' ? 'Pass' : 'Fail' %>">
+                                            <%= olddata.result === 'Fail' ? 'Pass' : 'Fail' %>
+                                        </option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="studentid" value="<%= olddata.studentid%>">
+                                <button type="submit" class="btn btn-primary" onsubmit="submit()">
+                                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                    <!-- <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>"> -->
+                                    Add Marksheet
+                                </button>
                 </form>
             </main>
             <!-- <script>

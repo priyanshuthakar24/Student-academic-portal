@@ -35,6 +35,7 @@ const filefilter = (req, file, cb) => {
         cb(null, true);
     }else{
         cb(null, false);
+        req.flash('error','Please add jpg or jpeg or png formet');
     }
 }
 app.set('view engine', 'ejs');
@@ -60,6 +61,9 @@ app.use((req, res, next) => {
         return next();
     }
     Admin.findById(req.session.user._id).then(user => {
+        if(!user){
+            return next();
+        }
         req.user = user;
         next();
     }).catch(err => { console.log(err) });

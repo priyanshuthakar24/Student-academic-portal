@@ -44,9 +44,12 @@
             </section> -->
 
                 <form action="/edu/addinstitute" method="post" class="product-form">
+                    <% if(errormessage){%>
+                        <%= errormessage%>
+                            <%}%>
                     <div class="nice-form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" placeholder="Enter Your name">
+                        <input type="text" name="name" placeholder="Enter Your name" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="nice-form-group">
                         <label for="mobileno">Mobile No</label>
@@ -57,7 +60,7 @@
                         <input type="email" name="email" class="icon-left" placeholder="www.xyz.com">
                     </div>
                     <div class="nice-form-group">
-                        <label for="adrno">Index Number</label>
+                        <label for="indexno">Index Number</label>
                         <input type="text" name="indexno" placeholder="XXXX XXXX XXXX">
                     </div>
                     <div class="nice-form-group">
