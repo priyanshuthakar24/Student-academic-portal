@@ -14,7 +14,11 @@ exports.getdetail = (req, res, next) => {
     const studentid = req.session.user.adharno
     Student.findOne({ adharno: studentid }).then(data => {
         res.render('user/viewprofile', { pagetitle: 'View Profile', detail: data ,name:name.name})
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 
 exports.getimage=(req,res,next)=>{

@@ -39,7 +39,11 @@ exports.postinstitute = (req, res, next) => {
             }).then(result => {
                 res.redirect('/edu/index');
             })
-    }).catch(err => console.log(err));
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 };
 
 exports.getsearchid = (req, res, next) => {
@@ -65,7 +69,11 @@ exports.postsearchid = (req, res, next) => {
             req.flash('error', 'Id Dose not Found');
             res.redirect('/edu/searchid');
         }
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
@@ -80,5 +88,9 @@ exports.postCartDeleteProduct = (req, res, next) => {
         return data.save()
     }).then(result => {
         res.redirect('/edu/index');
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     });
 };

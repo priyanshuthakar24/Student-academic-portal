@@ -42,7 +42,11 @@ exports.postuserLogin = (req, res, next) => {
             res.redirect('/login');
         })
 
-    }).catch(err => { console.log(err) });
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 
 
@@ -89,8 +93,11 @@ exports.postAdminLogin = (req, res, next) => {
             res.redirect('/admin/login');
         });
 
-    }).catch(err => { console.log(err) });
-
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 };
 
 
@@ -139,7 +146,11 @@ exports.postEduLogin = (req, res, next) => {
                 res.redirect('/edu/login');
             });
 
-    }).catch(err => { console.log(err) });
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 
 

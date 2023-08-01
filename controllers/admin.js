@@ -46,7 +46,11 @@ exports.poststudentdata = (req, res, next) => {
             }).then(result => {
                 res.redirect('/admin/index');
             })
-    }).catch(err => console.log(err));
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 
 };
 
@@ -79,6 +83,10 @@ exports.getstudentdetail = (req, res, next) => {
                 res.redirect('/admin/editstudent');
             }
         }
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     });
 }
 
@@ -95,7 +103,11 @@ exports.getaddmarksheet = (req, res, next) => {
     Student.findById(studentid).then(data => {
         console.log(data._id);
         res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data, errormessage: message, olddata: { marksheet: "", std: "", result: "Pass", studentid: data._id } });
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
     // console.log(studentid);
 }
 exports.postaddmarksheet = (req, res, next) => {
@@ -117,7 +129,11 @@ exports.postaddmarksheet = (req, res, next) => {
         return data.save();
     }).then(result => {
         res.redirect('/admin/index');
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 };
 // exports.postaddmarksheet = (req, res, next) => {
 //     const studentid = req.body.studentid;
@@ -159,7 +175,11 @@ exports.getstudentdata = (req, res, next) => {
             req.flash('error', 'Id Dose not Found');
             res.redirect('/admin/viewdetail');
         }
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 
 
@@ -176,7 +196,11 @@ exports.geteditprofile = (req, res, next) => {
     }
     Student.findById(studentid).then(data => {
         res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
-    })
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 }
 exports.posteditprofile = (req, res, next) => {
     const studentid = req.body.studentid;
@@ -211,7 +235,11 @@ exports.posteditprofile = (req, res, next) => {
         }).then(result => {
             console.log("product Updated");
             res.redirect('/admin/index');
-        }).catch(err => { console.log(err) });
+        }).catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
         // console.log(hashedpassword);
         // data.password = hashedpassword
     }

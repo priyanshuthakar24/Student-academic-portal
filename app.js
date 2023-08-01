@@ -27,15 +27,15 @@ const filestorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        cb(null,   file.originalname);
+        cb(null, file.originalname);
     }
 })
 const filefilter = (req, file, cb) => {
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
         cb(null, true);
-    }else{
+    } else {
         cb(null, false);
-        req.flash('error','Please add jpg or jpeg or png formet');
+        req.flash('error', 'Please add jpg or jpeg or png formet');
     }
 }
 app.set('view engine', 'ejs');
@@ -48,26 +48,12 @@ const educationroute = require('./routes/edu');
 
 
 app.use(bodyparser.urlencoded({ extended: false }));
-app.use(multer({ storage: filestorage,fileFilter: filefilter }).single('marksheetlink'));
+app.use(multer({ storage: filestorage, fileFilter: filefilter }).single('marksheetlink'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false, store: store }));
 app.use(csrfProtection);
 app.use(flash());
-
-
-app.use((req, res, next) => {
-    if (!req.session.user) {
-        return next();
-    }
-    Admin.findById(req.session.user._id).then(user => {
-        if(!user){
-            return next();
-        }
-        req.user = user;
-        next();
-    }).catch(err => { console.log(err) });
-});
 
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -77,14 +63,34 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+    if (!req.session.user) {
+        return next();
+    }
+    Admin.findById(req.session.user._id).then(user => {
+        if (!user) {
+            return next();
+        }
+        req.user = user;
+        next();
+    }).catch(err => { next( new Error(err)); });
+});
+
+
 
 app.use('/admin', adminroute);
 app.use('/edu', educationroute);
 app.use(studentroute);
 app.use(authroute);
+app.use('/500', errorcontroller.get500);
 app.use(errorcontroller.get404);
 
-
+app.use((error, req, res, next) => {
+    res.status(500).render('500',{
+        pagetitle:"Error!",
+        path:"/500"
+    })
+});
 
 mongoose.connect(MONGODB_URI).then(result => {
     app.listen(3003);
