@@ -107,7 +107,7 @@
                                         </p>
                                         <form action="/edu/cart-delete-item" method="post">
                                             <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                            <input type="hidden" value="<%=data.std %>" name="productId">
+                                            <input type="hidden" value="<%=data._id %>" name="productId">
                                             <input type="hidden" value="<%=detail.adharno %>" name="adharno">
                                             <button type="submit" class="btn btn-primary">Delete</button>
                                         </form>

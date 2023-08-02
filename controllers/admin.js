@@ -246,7 +246,6 @@ exports.posteditprofile = (req, res, next) => {
 }
 
 
-
 // const data = new Student({ name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user });
 //     data.save().then(result => {
 //         console.log(result);

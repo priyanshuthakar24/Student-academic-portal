@@ -7,7 +7,8 @@
             <main>
                 <div class="header1">
                     <h1>
-                        Add New Institute
+                        <% if(editing){ %> Edit New Institute <%}else{%> Add New Institute <%}%>
+
                     </h1>
                 </div>
                 <!-- <section class="forms-section">
@@ -43,32 +44,51 @@
                 </div>
             </section> -->
 
-                <form action="/edu/addinstitute" method="post" class="product-form">
+                <form action="/edu/<% if(editing){%>editdetail<%}else{%>addinstitute<%}%>" method="post"
+                    class="product-form">
                     <% if(errormessage){%>
                         <%= errormessage%>
                             <%}%>
-                    <div class="nice-form-group">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" placeholder="Enter Your name" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="mobileno">Mobile No</label>
-                        <input type="tel" name="mobileno" class="icon-left" placeholder="Your Phone Number">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="icon-left" placeholder="www.xyz.com">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="indexno">Index Number</label>
-                        <input type="text" name="indexno" placeholder="XXXX XXXX XXXX">
-                    </div>
-                    <div class="nice-form-group">
-                        <label for="signup-password">Password</label>
-                        <input id="signup-password" type="password" name="password" class="icon-left" required>
-                    </div>
-                    <button class="btn btn-primary" type="submit">
-                        <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                        Add Institute</button>
+                                <div class="nice-form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" placeholder="Enter Your name"
+                                        oninput="this.value = this.value.toUpperCase()"
+                                        value="<% if (editing) {%><%=product.name %><%}else{%><%= olddata.name%><%}%>"
+                                        required>
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="mobileno">Mobile No</label>
+                                    <input type="tel" name="mobileno"
+                                        value="<% if (editing) {%><%=product.mobileno %><%}else{%><%= olddata.mobileno%><%}%>"
+                                        class="icon-left" placeholder="Your Phone Number" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email"
+                                        value="<% if (editing) {%><%=product.email %><%}else{%><%= olddata.email%><%}%>"
+                                        class="icon-left" placeholder="www.xyz.com" required>
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="indexno">Index Number</label>
+                                    <!-- <input type="text" name="indexno" placeholder="XXXX XXXX XXXX"> -->
+                                    <% if (editing) {%>
+                                        <input type="text" name="indexno" readonly value="<%=product.indexno %>"
+                                            placeholder="XXXX XXXX XXXX">
+                                        <%}else{ %>
+                                            <input type="text" name="indexno" value="<%= olddata.indexno%>"
+                                                placeholder="XXXX XXXX XXXX" required>
+                                            <%}%>
+                                </div>
+                                <div class="nice-form-group">
+                                    <label for="signup-password">Password</label>
+                                    <input type="password" name="password"
+                                        value="<% if (editing) {%><%=product.password %><%}%>"
+                                        placeholder="XXXX XXXX XXXX" class="icon-left" required>
+                                </div>
+                                <input type="hidden" value="<%= product._id%>" name="instituteid">
+                                <button class="btn btn-primary" type="submit">
+                                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                    <% if(editing){%>Edit Institute<%}else{%> Add Institute <%}%>
+                                </button>
             </main>
             <%- include('../includes/end.ejs')%>

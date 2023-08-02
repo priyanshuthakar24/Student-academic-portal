@@ -1,0 +1,144 @@
+<%- include('../includes/head.ejs')%>
+    <style>
+        /* Import Font Dancing Script */
+        /* @import url(https://fonts.googleapis.com/css?family=Dancing+Script); */
+
+        * {
+            margin: 0;
+        }
+
+        /* Main */
+        .main {
+            margin-top: 2%;
+            margin-left: 10%;
+            font-size: 28px;
+            padding: 0 10px;
+            width: 80%;
+        }
+
+        .main h2 {
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .main .card {
+            background-color: #fff;
+            border-radius: 18px;
+            box-shadow: 1px 1px 8px 0 grey;
+            height: auto;
+            margin-bottom: 20px;
+            padding: 20px 0 20px 50px;
+        }
+
+        .main .card table {
+            border: none;
+            font-size: 16px;
+            height: 270px;
+            width: 80%;
+        }
+
+        .edit {
+            position: absolute;
+            color: gray;
+            right: 15%;
+            top: 25%;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 40px;
+            margin-top: 10px;
+        }
+
+        .information {
+            font-size: 20px;
+            /* margin: 10px; */
+            margin-top: 40px;
+            padding-left: 60px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('../includes/nav.ejs')%>
+            <main>
+                <div class="heading">Student Detail</div>
+
+                <!-- jdajsdjajsda -->
+                <!-- Main -->
+                <div class="main">
+                    <h2>IDENTITY</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <i class="fa fa-pen fa-xs edit"></i> -->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata.name%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata.email%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata.mobileno%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Index No</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata.indexno%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Admin Id</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata._id%>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Adhar No</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= studentdata.adharno%>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <h2 style="text-align: center; font-size: 40px;">Add Marksheet</h2>
+                </div>
+                <!-- agagagsdgagsdg -->
+
+                <div class="mainbox marksheet">
+                    <div class="mainbox_box1 card1">
+                        <input type="hidden" value="<%= studentdata._id%>" name="studentid">
+                        <a href="/edu/editid/<%= studentdata._id%>">
+                            <button type="submit"><i class="fa-solid fa-user-pen"></i><br>update
+                                Detail</button>
+                        </a>
+                    </div>
+                    <div class="mainbox_box1 card1">
+                        <a href="/edu/searchbox">
+                            <button type="submit"><i class="fa-solid fa-folder-plus"></i><br>add
+                                Marksheet</button>
+                        </a>
+                    </div>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs')%>

@@ -1095,10 +1095,18 @@ button {
 }
 
 input:read-only {
-    opacity: .75;
+    background: #eee;
+    /* opacity: .75; */
     cursor: not-allowed;
 }
+select[readonly]{
+    background: #eee;
+    cursor:no-drop;
+}
 
+select[readonly] option{
+    display:none;
+}
 /* @import url('https://unpkg.com/nice-forms.css/nice-forms.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;400;700&display=swap');
 body {

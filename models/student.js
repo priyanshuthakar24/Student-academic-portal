@@ -62,8 +62,10 @@ studentschema.statics.addtocart = function (items) {
     return this.save();
 }
 studentschema.methods.removefromCart = function (productId) {
+    console.log("method call");
     const updatedCartItems = this.cart.items.filter(item => {
-        return item.std.toString() !== productId;
+        console.log(item._id);
+        return item._id.toString() !== productId.toString();
     });
     this.cart.items = updatedCartItems;
     return this.save();

@@ -20,8 +20,8 @@ router.get('/editstudent', isAuth, admincontroller.getstudent);
 router.post('/studentid', isAuth, admincontroller.getstudentdetail);
 router.get('/addmarksheet/:studentid', isAuth, admincontroller.getaddmarksheet);
 router.post('/postmarksheet', isAuth, [check('std',"enater valid Std").isNumeric().isLength({min:1,max:2})],admincontroller.postaddmarksheet);
-router.get('/viewdetail', isAuth, admincontroller.getid);
-router.post('/viewdata', isAuth, admincontroller.getstudentdata);
 router.get('/editid/:studentid', isAuth, admincontroller.geteditprofile);
 router.post('/editdetail', isAuth,[check('name', 'name is not valid').trim().isAlpha('en-US', {ignore: '\s'}), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim(),check('password','password Should be min 4 charcter long..').isLength({min:4}).trim()], admincontroller.posteditprofile)
+router.get('/viewdetail', isAuth, admincontroller.getid);
+router.post('/viewdata', isAuth, admincontroller.getstudentdata);
 module.exports = router;
