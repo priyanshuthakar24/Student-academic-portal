@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const filehelper = require('../util/fileunlink');
 const Schema = mongoose.Schema;
 const studentschema = new Schema({
     name: {
@@ -67,6 +68,11 @@ studentschema.methods.removefromCart = function (productId) {
         console.log(item._id);
         return item._id.toString() !== productId.toString();
     });
+    const unlik=this.cart.items.filter(item1=>{
+        return item1._id.toString() === productId.toString();
+    })
+    console.log(unlik);
+    filehelper.deleteFile(unlik[0].marksheet);
     this.cart.items = updatedCartItems;
     return this.save();
 }

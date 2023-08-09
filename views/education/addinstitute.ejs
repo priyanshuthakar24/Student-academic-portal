@@ -85,10 +85,12 @@
                                         value="<% if (editing) {%><%=product.password %><%}%>"
                                         placeholder="XXXX XXXX XXXX" class="icon-left" required>
                                 </div>
-                                <input type="hidden" value="<%= product._id%>" name="instituteid">
-                                <button class="btn btn-primary" type="submit">
-                                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                    <% if(editing){%>Edit Institute<%}else{%> Add Institute <%}%>
-                                </button>
+                                <% if (editing){%>
+                                    <input type="hidden" value="<%= product._id%>" name="instituteid">
+                                    <%}%>
+                                        <button class="btn btn-primary" type="submit">
+                                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                            <% if(editing){%>Edit Institute<%}else{%> Add Institute <%}%>
+                                        </button>
             </main>
             <%- include('../includes/end.ejs')%>

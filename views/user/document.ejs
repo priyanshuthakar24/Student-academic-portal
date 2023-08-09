@@ -1,0 +1,102 @@
+<%- include('../includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/form.css">
+    <style>
+
+    </style>
+    </head>
+
+    <body>
+        <%- include('../includes/unav.ejs')%>
+            <main>
+                <div class="header1">
+                    <h1>
+                        request Document
+                    </h1>
+                </div>
+                <form action="/admin/document" method="post" class="product-form">
+
+
+
+                    <div class="nice-form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" value="<%=product.name%>"
+                            oninput="this.value = this.value.toUpperCase()" placeholder="Enter Your name" required
+                            readonly>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="mobileno">Mobile No</label>
+                        <input type="tel" name="mobileno" value="<%=product.mobileno%>" class="icon-left"
+                            placeholder="Your Phone Number" pattern="[0-9]{10}" required readonly>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" value="<%=product.email%>" class="icon-left"
+                            placeholder="www.xyz.com" required readonly>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="dob">Date of Birth</label>
+
+                        <input type="text" name="dob" value="<%=product.Dob %>" required readonly>
+
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="adrno">Aadhaar Number</label>
+
+                        <input type="text" name="adharno" readonly value="<%=product.adharno %>"
+                            placeholder="XXXX XXXX XXXX">
+
+
+                    </div>
+
+                    <div class="nice-form-group">
+                        <label for="xender">Gender</label>
+                        <select name="xender" id="" required readonly>
+
+                            <option value="<%= product.xender%>">
+                                <%= product.xender%>
+                            </option>
+                            <option value="<%= product.xender === 'Female' ? 'Male' : 'Female' %>">
+                                <%= product.xender==='Female' ? 'Male' : 'Female' %>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" value="<%=product.password %>"
+                            placeholder="XXXX XXXX XXXX" class="icon-left" required readonly>
+                    </div>
+                    <div class="nice-form-group">
+                        <label for="xender">Document</label>
+                        <select name="document" id="" required>
+
+                            <option value="">
+                                -- Please select Field --
+                            </option>
+                            <option value="bonofide">
+                                bonofide
+                            </option>
+                            <option value="lc">
+                                lc
+                            </option>
+                            <option value="lor">
+                                lor
+                            </option>
+                            <option value="fees recipt">
+                                fees recipt
+                            </option>
+                        </select>
+                    </div>
+                    <div class="nice-form-group">
+                        <label>Textarea</label>
+                        <textarea rows="5" name="description" placeholder="Please enter the reson" required></textarea>
+                    </div>
+
+                    <input type="hidden" value="<%= product._id%>" name="studentid">
+                    <input type="hidden" value="<%= product.adminId%>" name="adminid">
+                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                    <button class="btn btn-primary" type="submit">
+                        Add Request
+                    </button>
+                </form>
+            </main>
+            <%- include('../includes/end.ejs')%>

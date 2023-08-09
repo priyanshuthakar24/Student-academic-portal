@@ -21,13 +21,13 @@ const store = new MongoDBStore({
     collection: 'session'
 });
 const csrfProtection = csrf();
-
 const filestorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        const math = Math.floor(Math.random() * 100001)
+        cb(null, new Date().toDateString() + '-' + math + file.originalname);
     }
 })
 const filefilter = (req, file, cb) => {
@@ -73,7 +73,10 @@ app.use((req, res, next) => {
         }
         req.user = user;
         next();
-    }).catch(err => { next( new Error(err)); });
+    }).catch(err => {
+        // next( new Error(err)); 
+        console.log(err);
+    });
 });
 
 
@@ -85,12 +88,12 @@ app.use(authroute);
 app.use('/500', errorcontroller.get500);
 app.use(errorcontroller.get404);
 
-app.use((error, req, res, next) => {
-    res.status(500).render('500',{
-        pagetitle:"Error!",
-        path:"/500"
-    })
-});
+// app.use((error, req, res, next) => {
+//     res.status(500).render('500',{
+//         pagetitle:"Error!",
+//         path:"/500"
+//     })
+// });
 
 mongoose.connect(MONGODB_URI).then(result => {
     app.listen(3003);

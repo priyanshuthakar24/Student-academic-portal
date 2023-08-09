@@ -86,6 +86,7 @@
                         <div class="backdrop">
                             <div class="popup">
                                 <img src="" class="popup-image" id="modal-image" />
+                                
                             </div>
                         </div>
                         <div class="close"><i class="fa-solid fa-circle-xmark"></i></div>
@@ -99,14 +100,20 @@
                         <% for(let data of detail.cart.items){%>
                             <!-- <div class="box card-body"> -->
                             <div class="card" style="width: 18rem;">
-                                    <img src="<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
-                                        onclick="resetImg(event)">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Std: <%=data.std%>
-                                        </h5>
-                                        <p class="card-text">Status: <%=data.result%>
-                                        </p>
-                                    </div>
+                                <img src="<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
+                                    onclick="resetImg(event)">
+                                <div class="card-body">
+                                    <h5 class="card-title">Std: <%=data.std%>
+                                    </h5>
+                                    <p class="card-text">Status: <%=data.result%>
+                                    </p>
+                                    <form action="/download" method="post">
+                                        <button type="submit" class="btn btn-primary" >Download</button>
+                                        <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                        <input type="hidden" name="studentid" value="<%= detail._id%>">
+                                        <input type="hidden" name="marksheetid" value="<%= data._id%>">
+                                    </form>
+                                </div>
                                 <!-- </div> -->
                             </div>
                             <!--    <img src="<%= data.marksheet%>" alt="" srcset="" id="imageBox1"

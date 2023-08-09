@@ -24,4 +24,8 @@ router.get('/editid/:studentid', isAuth, admincontroller.geteditprofile);
 router.post('/editdetail', isAuth,[check('name', 'name is not valid').trim().isAlpha('en-US', {ignore: '\s'}), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim(),check('password','password Should be min 4 charcter long..').isLength({min:4}).trim()], admincontroller.posteditprofile)
 router.get('/viewdetail', isAuth, admincontroller.getid);
 router.post('/viewdata', isAuth, admincontroller.getstudentdata);
+router.post('/document',admincontroller.postdocument);
+router.get('/requestdocument',isAuth,admincontroller.getrequestdocument)
+router.post('/requestdocument',isAuth,admincontroller.postrequestdocument)
+router.post('/deletedocument',isAuth,admincontroller.postdelete);
 module.exports = router;

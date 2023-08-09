@@ -1,0 +1,26 @@
+<%- include('../includes/head.ejs')%>
+
+    </head>
+
+    <body>
+        <%- include('../includes/nav.ejs')%>
+
+            <div class="mainbox">
+                <% for ( let data of list){%>
+                    <div class="mainbox_box1 card1">
+                        <BUtton>
+
+                            <lable>Name</lable>: <%= data.name%> <br>
+                            <lable>ADhar no</lable>: <%= data.adharno%> <br>
+                            <lable>Document</lable>: <%= data.documenttype%> <br><br>
+                            <lable>Document Description</lable>: <%= data.description%> <br><br>
+                            <div>
+                                <!-- <button type="submit" class="btn btn-primary">Delete</button> -->
+                            </div>
+                        </BUtton>
+
+                    </div>
+                    <% }%>
+            </div>
+
+            <%- include('../includes/end.ejs')%>

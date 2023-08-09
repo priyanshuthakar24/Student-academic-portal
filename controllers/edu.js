@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/admin');
 const Student = require('../models/student');
 const { validationResult } = require('express-validator');
-const admin = require('../models/admin');
 
 exports.getIndex = (req, res, next) => {
     res.render('education/index', { pagetitle: 'edu Home' });
@@ -14,7 +13,7 @@ exports.getaddinstitute = (req, res, next) => {
     } else {
         message = null;
     }
-    res.render('education/addinstitute', { pagetitle: 'add Institute', errormessage: message, olddata: { name: "", mobileno: "", indexno: "", email: "", password: "" } });
+    res.render('education/addinstitute', { pagetitle: 'add Institute', editing: false, errormessage: message, olddata: { name: "", mobileno: "", indexno: "", email: "", password: "" } });
 }
 exports.postinstitute = (req, res, next) => {
     const email = req.body.email;
@@ -25,7 +24,7 @@ exports.postinstitute = (req, res, next) => {
     const errors = validationResult(req);
     const confirmpassword = req.body.confirmpassword;
     if (!errors.isEmpty()) {
-        return res.status(402).render('education/addinstitute', { pagetitle: 'Add Profile', path: '/edu/addprofile', errormessage: errors.array()[0].msg, olddata: { name: name, mobileno: mobileno, indexno: indexno, email: email, password: password } })
+        return res.status(402).render('education/addinstitute', { pagetitle: 'Add Profile', path: '/edu/addprofile', errormessage: errors.array()[0].msg, editing: false, olddata: { name: name, mobileno: mobileno, indexno: indexno, email: email, password: password } })
     }
     Admin.findOne({ email: email }).then(adminDoc => {
         bcrypt.hash(password, 12)
@@ -42,9 +41,7 @@ exports.postinstitute = (req, res, next) => {
                 res.redirect('/edu/index');
             })
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err)
     });
 };
 
@@ -72,9 +69,7 @@ exports.postsearchid = (req, res, next) => {
             res.redirect('/edu/searchid');
         }
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 exports.postCartDeleteProduct = (req, res, next) => {

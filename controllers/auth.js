@@ -43,9 +43,7 @@ exports.postuserLogin = (req, res, next) => {
         })
 
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 
@@ -94,9 +92,7 @@ exports.postAdminLogin = (req, res, next) => {
         });
 
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 };
 
@@ -147,9 +143,7 @@ exports.postEduLogin = (req, res, next) => {
             });
 
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 

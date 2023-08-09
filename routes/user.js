@@ -7,5 +7,7 @@ router.get('/',studentcontroller.getindex);
 router.get('/image',studentcontroller.getimage);
 // router.post('/studentid',isAuth,studentcontroller.getdetail);
 router.post('/viewdetail',isAuth,studentcontroller.getdetail);
-// router.get('/viewdetail/:imageid',isAuth,studentcontroller.getimage);
+router.post('/documentpage',isAuth,studentcontroller.getdocument);
+router.post('/download',isAuth,studentcontroller.getimage);
+
 module.exports=router;

@@ -3,13 +3,13 @@
 
     <body>
         <%- include('../includes/nav.ejs')%>
-        <main>
-            <div class="header">
-                <h1>Student academic portal</h1>
-            </div>
-            <div class="mainbox">
-                <div class="mainbox_box1 card1">
-                    <!-- <div class="card"> -->
+            <main>
+                <div class="header">
+                    <h1>Student academic portal</h1>
+                </div>
+                <div class="mainbox">
+                    <div class="mainbox_box1 card1">
+                        <!-- <div class="card"> -->
                         <a href="/admin/addstudent">
 
                             <button type="submit">
@@ -19,27 +19,36 @@
                                 </div>
                             </button>
                         </a>
-                    <!-- </div> -->
+                        <!-- </div> -->
+                    </div>
+                    <div class="mainbox_box1 card1">
+                        <a href="/admin/editstudent">
+                            <button type="submit">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                <p>Update Profile</p>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="mainbox_box1 card1">
+                        <a href="/admin/viewdetail">
+                            <button type="submit">
+                                <i class="fa-regular fa-id-card"></i>
+                                <p>View Profile</p>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="mainbox_box1 card1">
+                        <a href="/admin/requestdocument">
+                            <button type="submit">
+                                <i class="fa-solid fa-file-contract"></i>
+                                <p>requested document</p>
+                            </button>
+                        </a>
+                    </div>
                 </div>
-                <div class="mainbox_box1 card1">
-                    <a href="/admin/editstudent">
-                        <button type="submit">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            <p>Update Profile</p>
-                        </button>
-                    </a>
-                </div>
-                <div class="mainbox_box1 card1">
-                    <a href="/admin/viewdetail">
-                        <button type="submit">
-                            <i class="fa-regular fa-id-card"></i>
-                            <p>View Profile</p>
-                        </button>
-                    </a>
-                </div>
-            </div>
 
 
-        </main>
+            </main>
 
-        <%- include('../includes/end.ejs')%>
+            <%- include('../includes/end.ejs')%>

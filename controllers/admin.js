@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
 const Student = require('../models/student');
+const Document = require('../models/document');
 const { validationResult } = require('express-validator');
+
+
 
 exports.getindex = (req, res, next) => {
     res.render('admin/index', { pagetitle: 'home' });
@@ -47,9 +50,7 @@ exports.poststudentdata = (req, res, next) => {
                 res.redirect('/admin/index');
             })
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 
 };
@@ -84,9 +85,7 @@ exports.getstudentdetail = (req, res, next) => {
             }
         }
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 
@@ -104,9 +103,7 @@ exports.getaddmarksheet = (req, res, next) => {
         console.log(data._id);
         res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data, errormessage: message, olddata: { marksheet: "", std: "", result: "Pass", studentid: data._id } });
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
     // console.log(studentid);
 }
@@ -130,9 +127,7 @@ exports.postaddmarksheet = (req, res, next) => {
     }).then(result => {
         res.redirect('/admin/index');
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 };
 // exports.postaddmarksheet = (req, res, next) => {
@@ -176,9 +171,7 @@ exports.getstudentdata = (req, res, next) => {
             res.redirect('/admin/viewdetail');
         }
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 
@@ -197,9 +190,7 @@ exports.geteditprofile = (req, res, next) => {
     Student.findById(studentid).then(data => {
         res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
     }).catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
+        console.log(err);
     });
 }
 exports.posteditprofile = (req, res, next) => {
@@ -236,9 +227,7 @@ exports.posteditprofile = (req, res, next) => {
             console.log("product Updated");
             res.redirect('/admin/index');
         }).catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+            console.log(err);
         });
         // console.log(hashedpassword);
         // data.password = hashedpassword
@@ -246,6 +235,50 @@ exports.posteditprofile = (req, res, next) => {
 }
 
 
+exports.postdocument = (req, res, next) => {
+    const studentid = req.body.studentid;
+    const name = req.body.name;
+    const email = req.body.email;
+    const mobileno = req.body.mobileno;
+    const dob = req.body.dob;
+    const xender = req.body.xender;
+    const adharno = req.body.adharno
+    const documenttype = req.body.document;
+    const description = req.body.description;
+    const adminid = req.body.adminid;
+    const data = new Document({ name: name, email: email, mobileno: mobileno, Dob: dob, adharno: adharno, xender: xender, adminId: adminid, documenttype: documenttype, description: description });
+    return data.save().then(result => {
+        res.redirect('/');
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+exports.getrequestdocument = (req, res, next) => {
+    const id = req.session.user._id
+    console.log(id);
+
+    Document.find({ adminId: id }).then(data => {
+        console.log(data)
+        res.render("admin/documentlist", { pagetitle: 'document list', list: data })
+    })
+}
+exports.postrequestdocument = (req, res, next) => {
+    const id = req.session.user._id;
+    const adharno = req.body.adharno;
+    const docid = req.body.productId;
+    Document.find({ adminId: id, adharno: adharno }).then(data => {
+        res.render("admin/documentinfo", { pagetitle: 'document list', list: data })
+    })
+}
+exports.postdelete = (req, res, next) => {
+const id=req.body.productId;
+console.log(id);
+Document.deleteOne({_id:id}).then(result=>{
+    res.redirect('/admin/requestdocument');
+})
+
+}
 // const data = new Student({ name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user });
 //     data.save().then(result => {
 //         console.log(result);
