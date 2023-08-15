@@ -6,9 +6,8 @@
 
     <div>
         <ul id="navbar">
-            <li><a href="/admin/login">Admin</a></li>
-            <li><a href="/edu/login">Education</a></li>
             <% if(userisAuthenticated){%>
+                <li><a href="/">Home</a></li>
                 <li id="lg-bag"> <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
                     <button type="submit" class="btn btn-primary">Logout</button>

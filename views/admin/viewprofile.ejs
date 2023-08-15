@@ -5,69 +5,64 @@
     <body>
         <%- include('../includes/nav.ejs')%>
             <main>
-                <div class="heading">Student Detail</div>
-                <!-- <div class="main_detail">
-                Name: <%= detail.name%> <br><br>
-                    Mobile No: <%= detail.mobileno%> <br><br>
-                        Emial: <%= detail.email%> <br><br>
-                            Date of Birth: <%= detail.Dob%> <br><br>
-                                Xender: <%= detail.xender%> <br><br>
-            </div> -->
-                <div class="main">
-                    <h2>IDENTITY</h2>
-                    <div class="card">
-                        <div class="card-body">
-                            <!-- <i class="fa fa-pen fa-xs edit"></i> -->
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.name%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.email%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mobile No</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.mobileno%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date of Birth</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.Dob%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Xender</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.xender%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Adhar No</td>
-                                        <td>:</td>
-                                        <td>
-                                            <%= detail.adharno%>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="header1 nine">
+                    <h1>Student Detail</h1>
+                </div>
+
+                <div class="student-info">
+                    <div class="student-detail">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.name%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.email%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile no</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.mobileno%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dob</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.Dob%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.xender%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Adharno</td>
+                                    <td>:</td>
+                                    <td>
+                                        <%= detail.adharno%>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <h2 style="text-align: center; font-size: 40px;">Add Marksheet</h2>
+                <div class="header1 nine">
+                    <h1>Added Marksheet</h1>
+                </div>
+                <!-- <h2 style="text-align: center; font-size: 40px;">Add Marksheet</h2> -->
                 <div class="wrapper">
                     <div id="myModal" class="modal">
                         <div class="modal-content1">
@@ -81,30 +76,32 @@
                     </div>
                 </div>
 
-                <!-- studentid:<%= detail._id%><br><br> -->
-                <div class="main_marksheet main">
+                <div class="marksheet-data">
                     <% if (detail.cart.items.length>0){%>
-                        <div class="card2">
-                            <% for(let data of detail.cart.items){%>
-                                <!-- <div class="box card-body"> -->
-                                <div class="card" style="width: 18rem;"> 
-                                    <img src="/<%= data.marksheet%>" alt="" srcset="" id="imageBox1" onclick="resetImg(event)">
-                                    <div class="card-body">
-                                        <h5>
-                                            Std: <%=data.std%>
-                                        </h5>
-                                        <p>
-                                            Status: <%=data.result%>
-                                        </p>
-                                    </div>
+                        <!-- <div class="card2"> -->
+                        <% for(let data of detail.cart.items){%>
+                            <!-- <div class="box card-body"> -->
+                            <div class="box">
+                                <div class="box-img">
+                                    <img src="/<%= data.marksheet%>" alt="" srcset="" id="imageBox1"
+                                        onclick="resetImg(event)">
                                 </div>
-                                <%}%>
-                        </div>
-                        <%}else{%>
-                            <div class="card2">
-                                <p style="text-align: center;">No marksheet ...</p>
+                                <div class="box-detail">
+                                    <h5>
+                                        Std: <%=data.std%>
+                                    </h5>
+                                    <p>
+                                        Status: <%=data.result%>
+                                    </p>
+                                </div>
                             </div>
                             <%}%>
+
+                                <%}else{%>
+                                    <div class="card2">
+                                        <p style="text-align: center;">No marksheet ...</p>
+                                    </div>
+                                    <%}%>
                 </div>
 
             </main>

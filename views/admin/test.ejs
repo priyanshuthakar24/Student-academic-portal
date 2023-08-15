@@ -65,8 +65,12 @@
     <option value="male">male</option>
     <option value="female">female</option>
     <%}else{%>
-      <option value="male"><%= olddata.xender%></option>
-      <option value="female"><% (<%= olddata.xender%> == female){male}%></option>
+      <option value="male">
+        <%= olddata.xender%>
+      </option>
+      <option value="female">
+        <% (<%=olddata.xender%> == female){male}%>
+      </option>
       <%}%>
 </select>
 <option value="<% if (editing) {%><%=product.xender%><%}else{%><%= olddata.xender%><%}%>">
@@ -79,8 +83,8 @@
 <option value="Female">Female</option>
 [850, 720]
 
- <!-- <%}%> -->
-                                        <!-- <option
+<!-- <%}%> -->
+<!-- <option
                                                         value="<% if (editing) {%><%=product.xender%><%}else{%><%= olddata.xender%><%}%>">
                                                         <% if (editing) {%>
                                                             <%=product.xender%>
@@ -88,8 +92,209 @@
                                                                     <%= olddata.xender%>
                                                                         <%}%>
                                                     </option> -->
-                                        <!-- <option value="Female">Female</option> -->
-                                         <!-- <%if(editing){%>
+<!-- <option value="Female">Female</option> -->
+<!-- <%if(editing){%>
                                             <option value="male">male</option>
                                             <option value="female">female</option>
                                             <%}else{%> -->
+
+
+
+<!-- ---*-*-*-*-*-  -->
+
+<div class="container">
+
+  <div class="card-wrapper">
+
+    <div class="card">
+
+      <div class="card-image">
+        <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+      </div>
+
+
+      <div class="details">
+        <h2>View Profile
+          <br>
+          <span class="job-title">UI Developer</span>
+        </h2>
+      </div>
+    </div>
+  </div><!-- end box wrapper -->
+
+
+  <div class="card-wrapper">
+
+    <div class="card profile-two">
+
+      <div class="card-image profile-img--two">
+        <img src="https://image.ibb.co/c9rY6J/profile02.jpg" alt="profile two">
+      </div>
+
+      <ul class="social-icons">
+        <li>
+          <a href="">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-dribbble"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div class="details jane">
+        <h2>Jane Doe
+          <br>
+          <span class="job-title">UI Designer</span>
+        </h2>
+      </div>
+    </div>
+  </div><!-- END box wrapper -->
+
+</div><!-- END container -->
+
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8">
+</script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+
+
+<!-- dsfl;dsfd;lksf;lk;lkfdls;kfd;lkfd;lkfdsal;k / -->
+<%- include('../includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/viewprofile.css">
+    </head>
+
+    <body>
+
+        <%- include('../includes/snav.ejs')%>
+
+            <main>
+                <div class="header1 nine">
+                    <h1>Student Detail</h1>
+                </div>
+
+                <div class="main">
+                    <h2>IDENTITY</h2>
+                    <div class="card">
+                        <div class="card-body">
+
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.name%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.email%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.mobileno%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.Dob%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Xender</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.xender%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adhar No</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= detail.adharno%>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- studentid:<%= detail._id%><br><br> -->
+                <div class="wrapper">
+                    <div id="myModal" class="modal">
+                        <div class="modal-content1">
+                            <div class="backdrop">
+                                <div class="popup">
+                                    <img src="" class="popup-image" id="modal-image" />
+
+                                </div>
+                            </div>
+                            <div class="close"><i class="fa-solid fa-circle-xmark"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 style="text-align: center; font-size: 40px;"> Marksheet</h2>
+                <div class="main_marksheet main">
+                    <% if (detail.cart.items.length> 0){%>
+                        <div class="card2">
+                            <% for(let data of detail.cart.items){%>
+                                <!-- <div class="box card-body"> -->
+                                <div class="card" style="width: 18rem;">
+                                    <img src="<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
+                                        onclick="resetImg(event)">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Std: <%=data.std%>
+                                        </h5>
+                                        <p class="card-text">Status: <%=data.result%>
+                                        </p>
+                                        <form action="/download" method="post">
+                                            <button type="submit" class="btn btn-primary">Download</button>
+                                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                            <input type="hidden" name="studentid" value="<%= detail._id%>">
+                                            <input type="hidden" name="marksheetid" value="<%= data._id%>">
+                                        </form>
+                                    </div>
+                                    <!-- </div> -->
+                                </div>
+                                <!--    <img src="<%= data.marksheet%>" alt="" srcset="" id="imageBox1"
+                                    onclick="resetImg(event)">
+                                <div class="resultdetail">
+                                    <p>
+                                        Std: <%=data.std%>
+                                    </p>
+                                    <p>
+                                        Status: <%=data.result%>
+                                    </p>
+                                </div>-->
+                                <%}%>
+                        </div>
+                        <%}else{%>
+                            <div class="card2">
+                                <p>No marksheet ..</p>
+                            </div>
+                            <%}%>
+                </div>
+            </main>
+            <script src="/js/image.js"></script>
+            <%- include('../includes/end.ejs')%>

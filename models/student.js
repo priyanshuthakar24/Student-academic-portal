@@ -16,7 +16,9 @@ const studentschema = new Schema({
     },
     adharno: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        index:true,
     },
     Dob: {
         type: String,

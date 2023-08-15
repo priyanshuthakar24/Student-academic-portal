@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;400;700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    /* background: #e6dabc; */
-    background: #ddca7e;
-    /* font-family: 'Poppins', sans-serif; */
+    background: #00b7cd;
+    /* background: #F4F2DE; */
+    /* background: #ddca7e; */
     font-family: 'Roboto Slab';
+    color: #212121;
     /* outline: none; */
-    /* background: #b2e0df; */
+    background: #b2e0df;
+   
 }
 
 .header {
@@ -17,10 +20,12 @@ body {
 }
 
 .mainbox {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-around;
     align-items: center;
-    margin: 10px 70px;
+    /* margin: 10px 70px; */
+    flex-wrap: wrap;
 }
 
 .mainbox_box1 {
@@ -28,33 +33,40 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-.mainbox_box1
-button{
+
+.mainbox_box1 button {
     padding: 50px;
     font-size: 20px;
-    border:none;
+    border: none;
     outline: none;
     border-radius: 10px;
-    background: #e0e0e0;
+    background: whitesmoke;
+    color: #212121;
     /* background: #25313c; */
 }
+
 .mainbox_box1 button i {
+    background-color: #0090ba;
     font-size: 70px;
 }
-.main_container{
+
+.main_container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 100px 0; 
+    margin: 100px 0;
 }
-.main_container input{
+
+.main_container input {
     padding: 8px 40px;
 }
+
 .main_container button {
     font-size: 25px;
     outline: none;
 }
-.marksheet{
+
+.marksheet {
     text-align: center;
     display: flex;
     justify-content: space-around;
@@ -68,42 +80,134 @@ button{
 .marksheet button i{
     font-size: 70px;
 } */
-.main_detail{
+.main_detail {
     font-size: 20px;
     padding-left: 40px;
 }
-.main_detail h1{
+
+.main_detail h1 {
     text-align: center;
 }
-.main_marksheet{
+
+.main_marksheet {
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.main_marksheet img{
+
+.main_marksheet img {
     width: 220px;
     height: 220px;
 }
-.main_marksheet .resultdetail{
+
+.main_marksheet .resultdetail {
     text-align: center;
     font-size: 1.5rem;
     padding-bottom: 30px;
 }
 
+
+/* dont know about this .0.0.0.0 */
 .card1 {
     /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px;
-  }
-  
-  /* On mouse-over, add a deeper shadow */
-  .card1:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-  
-  /* Add some padding inside the card container */
-  .container {
+}
+
+/* On mouse-over, add a deeper shadow */
+.card1:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
     padding: 2px 16px;
-  }
+}
+
+/* header msin title css 0.0.00.0.0.0.0.0.0*/
+.nine h1 {
+    text-align: center;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #222;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.nine h1 span {
+    margin-top: 5px;
+    font-size: 15px;
+    color: #444;
+    word-spacing: 1px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-template-rows: 27px 0;
+    grid-gap: 20px;
+    align-items: center;
+}
+
+.nine h1 span:after,
+.nine h1 span:before {
+    content: " ";
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    height: 5px;
+    background-color: #0090ba;
+}
+
+/* main-container of student css  0.0.00.0.0.0.0.0.0.*/
+
+
+.main-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-around;
+
+}
+
+.item .item-1 {
+    margin-bottom: 70px;
+}
+
+.item .item-1 button {
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    padding: 50px;
+    background: white;
+    font-size: 20px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+    background: #00a6be;
+    color: #ffffff;
+    font-family: "Roboto Slab";
+}
+
+.item .item-1 button i {
+    font-size: 70px;
+}
+
+.item .item-1 .detail {
+    padding-right: 25px;
+}
+
+@media(max-width:779px) {
+    .main-container {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 2rem;
+    }
+}
+
+@media(max-width:550px) {
+    .header1 h1 {
+        font-size: 32px;
+    }
+}

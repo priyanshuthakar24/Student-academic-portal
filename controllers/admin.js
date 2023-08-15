@@ -6,11 +6,13 @@ const { validationResult } = require('express-validator');
 
 
 exports.getindex = (req, res, next) => {
-    res.render('admin/index', { pagetitle: 'home' });
+    const name = req.session.user;
+    res.render('admin/index', { pagetitle: 'home', name: name.name });
 }
 
 
 exports.getnewform = (req, res, next) => {
+    const name = req.session.user;
     const editMode = req.query.edit;
     let message = req.flash('error');
     if (message.length > 0) {
@@ -18,11 +20,12 @@ exports.getnewform = (req, res, next) => {
     } else {
         message = null
     }
-    res.render('admin/addprofile', { pagetitle: 'New student', editing: editMode, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } });
+    res.render('admin/addprofile', { pagetitle: 'New student', editing: editMode, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' }, name: name.name });
 }
 
 
 exports.poststudentdata = (req, res, next) => {
+    const name1 = req.session.user;
     const name = req.body.name;
     const email = req.body.email;
     const mobileno = req.body.mobileno;
@@ -34,7 +37,7 @@ exports.poststudentdata = (req, res, next) => {
     console.log(errors);
     if (!errors.isEmpty()) {
         console.log(xender);
-        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: false, errormessage: errors.array()[0].msg, olddata: { name: name, mobileno: mobileno, dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: false, errormessage: errors.array()[0].msg, name: name1.name, olddata: { name: name, mobileno: mobileno, dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
     }
     console.log(req.user);
     Student.findOne({ email: email }).then(adminDoc => {
@@ -57,16 +60,18 @@ exports.poststudentdata = (req, res, next) => {
 
 
 exports.getstudent = (req, res, next) => {
+    const name = req.session.user;
     let message = req.flash('error');
     if (message.length > 0) {
         message = message[0];
     } else {
         message = null;
     }
-    res.render('admin/searchbyid', { pagetitle: 'Search Student', errormessage: message })
+    res.render('admin/searchbyid', { pagetitle: 'Search Student', errormessage: message, name: name.name })
 }
 
 exports.getstudentdetail = (req, res, next) => {
+    const name = req.session.user;
     const studentid = req.body.search;
     console.log(studentid);
     Student.findOne({ adharno: studentid }).then(studentdata => {
@@ -78,7 +83,7 @@ exports.getstudentdetail = (req, res, next) => {
             console.log(studentdata.adminId);
             console.log(req.user._id);
             if (studentdata.adminId.toString() === req.user._id.toString()) {
-                res.render('admin/updateprofile', { pagetitle: 'Update Profile', studentdata: studentdata });
+                res.render('admin/updateprofile', { pagetitle: 'Update Profile', studentdata: studentdata, name: name.name  });
             } else {
                 req.flash('error', "You can't access this id");
                 res.redirect('/admin/editstudent');
@@ -92,6 +97,7 @@ exports.getstudentdetail = (req, res, next) => {
 
 
 exports.getaddmarksheet = (req, res, next) => {
+    const name = req.session.user;
     const studentid = req.params.studentid;
     let message = req.flash('error');
     if (message.length > 0) {
@@ -101,13 +107,14 @@ exports.getaddmarksheet = (req, res, next) => {
     }
     Student.findById(studentid).then(data => {
         console.log(data._id);
-        res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data, errormessage: message, olddata: { marksheet: "", std: "", result: "Pass", studentid: data._id } });
+        res.render('admin/addmarksheet', { pagetitle: 'add marksheet', studentdata: data, errormessage: message, olddata: { marksheet: "", std: "", result: "Pass", studentid: data._id }, name: name.name });
     }).catch(err => {
         console.log(err);
     });
     // console.log(studentid);
 }
 exports.postaddmarksheet = (req, res, next) => {
+    const name = req.session.user;
     const studentid = req.body.studentid;
     console.log(studentid);
     const marksheetlink = req.file;
@@ -116,7 +123,7 @@ exports.postaddmarksheet = (req, res, next) => {
     const marksheet = marksheetlink.path;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: marksheet, std: std, result: result, studentid: studentid } })
+        return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: marksheet, std: std, result: result, studentid: studentid }, name: name.name })
     }
     Student.findById(studentid).then(data => {
         const updatedCartItems = [...data.cart.items];
@@ -148,23 +155,25 @@ exports.postaddmarksheet = (req, res, next) => {
 //     })
 // };
 exports.getid = (req, res, next) => {
+    const name = req.session.user;
     let message = req.flash('error');
     if (message.length > 0) {
         message = message[0];
     } else {
         message = null;
     }
-    res.render('admin/searchid', { pagetitle: 'searchid', errormessage: message })
+    res.render('admin/searchid', { pagetitle: 'searchid', errormessage: message, name: name.name  })
 }
 
 
 exports.getstudentdata = (req, res, next) => {
+    const name = req.session.user;
     const studentid = req.body.search;
     // console.log(studentid);
     Student.findOne({ adharno: studentid }).then(data => {
         if (data) {
             console.log(data);
-            res.render('admin/viewprofile', { pagetitle: 'All detail', detail: data })
+            res.render('admin/viewprofile', { pagetitle: 'All detail', detail: data, name: name.name  })
         }
         else {
             req.flash('error', 'Id Dose not Found');
@@ -179,6 +188,7 @@ exports.getstudentdata = (req, res, next) => {
 
 // student edit detai funcationaly
 exports.geteditprofile = (req, res, next) => {
+    const name = req.session.user;
     const editMode = req.query.edit;
     const studentid = req.params.studentid;
     let message = req.flash('error');
@@ -188,12 +198,13 @@ exports.geteditprofile = (req, res, next) => {
         message = null
     }
     Student.findById(studentid).then(data => {
-        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
+        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, name: name.name , olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
     }).catch(err => {
         console.log(err);
     });
 }
 exports.posteditprofile = (req, res, next) => {
+    const name1 = req.session.user;
     const studentid = req.body.studentid;
     const name = req.body.name;
     const email = req.body.email;
@@ -206,7 +217,7 @@ exports.posteditprofile = (req, res, next) => {
     let pass;
     if (!errors.isEmpty()) {
         console.log(xender);
-        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: true, errormessage: errors.array()[0].msg, product: { name: name, mobileno: mobileno, Dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: true, errormessage: errors.array()[0].msg, product: { name: name, mobileno: mobileno, Dob: dob, xender: xender, adharno: adrno, email: email, password: password }, name: name1.name  })
     } else {
         Student.findById(studentid).then(data => {
             pass = data;
@@ -255,28 +266,30 @@ exports.postdocument = (req, res, next) => {
 }
 
 exports.getrequestdocument = (req, res, next) => {
+    const name = req.session.user;
     const id = req.session.user._id
     console.log(id);
 
     Document.find({ adminId: id }).then(data => {
         console.log(data)
-        res.render("admin/documentlist", { pagetitle: 'document list', list: data })
+        res.render("admin/documentlist", { pagetitle: 'document list', list: data , name: name.name })
     })
 }
 exports.postrequestdocument = (req, res, next) => {
+    const name = req.session.user;
     const id = req.session.user._id;
     const adharno = req.body.adharno;
     const docid = req.body.productId;
     Document.find({ adminId: id, adharno: adharno }).then(data => {
-        res.render("admin/documentinfo", { pagetitle: 'document list', list: data })
+        res.render("admin/documentinfo", { pagetitle: 'document list', list: data, name: name.name  })
     })
 }
 exports.postdelete = (req, res, next) => {
-const id=req.body.productId;
-console.log(id);
-Document.deleteOne({_id:id}).then(result=>{
-    res.redirect('/admin/requestdocument');
-})
+    const id = req.body.productId;
+    console.log(id);
+    Document.deleteOne({ _id: id }).then(result => {
+        res.redirect('/admin/requestdocument');
+    })
 
 }
 // const data = new Student({ name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user });

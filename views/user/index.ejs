@@ -1,74 +1,112 @@
 <%- include('../includes/head.ejs')%>
-<style>
-  #header{
-    position: relative;
-  }
-</style>
+  <style>
+    /* #header {
+      position: relative;
+    } */
+    .information {
+      display: grid;
+      grid-template-columns: auto auto;
+      place-items: center;
+      overflow-x: hidden;
+    }
+
+    .y-video {
+      width: 220px;
+      height: 220px;
+    }
+
+    .y-video iframe {
+      display: inline-block;
+      position: relative;
+      top: 10px;
+      right: 50px;
+      width: 150%;
+      height: calc(0.5625 * 24vw);
+      max-width: 1280px;
+      max-height: 720px;
+      min-width: 320px;
+      min-height: 180px;
+      border-radius: 10px;
+    }
+
+
+
+    @media(max-width:770px) {
+      .information {
+        grid-template-columns: auto;
+        justify-content: space-around;
+      }
+      .feed{
+        z-index:955;
+      }
+    }
+  </style>
   </head>
 
   <body>
     <%- include('../includes/unav.ejs')%>
       <main>
-        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="true">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="/img/banner5.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="/img/banner4.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="/img/banner2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="/img/banner3.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="/img/banner6.jpg" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <div class="header">
-          <h1>Student Academic Portal</h1>
-        </div>
+        <!-- slider include  -->
+        <%- include('../includes/slider.ejs')%>
 
-        <!-- End Bootstrap Slider BODY section -->
-        <!-- main button funcationaly  -->
-        <div class="mainbox">
-          <div class="mainbox_box1 card1">
-            <form action="/viewdetail" method="post">
-              <!-- <a href="/viewdetail"> -->
-              <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-              <button type="submit">
-                <i class="fa-regular fa-id-card"></i>
-                <p>View Profile</p>
-              </button>
-              <!-- </a> -->
-            </form>
+          <!-- main header  -->
+          <div class="header1 nine">
+            <h1>Student Academic Portal<span>One Stop Solution</span></h1>
           </div>
-          <div class="mainbox_box1 card1">
-            <form action="/documentpage" method="post">
-              <!-- <a href="/viewdetail"> -->
-              <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-              <button type="submit">
-                <i class="fa-solid fa-file-pen"></i>
-                <p>Request Document</p>
-              </button>
-              <!-- </a> -->
-            </form>
+
+          <!-- main button funcationaly  -->
+          <div class="main-container">
+            <div class="item">
+              <div class="item-1">
+                <form action="/viewdetail" method="post">
+                  <button type="submit" class="btn-login"><i class="fa-regular fa-id-card"></i>
+                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                    <div class="detail">
+                      <h3>View Profile</h3>
+                    </div>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item-1">
+                <form action="/documentpage" method="post">
+                  <button type="submit" class="btn-login">
+                    <i class="fa-solid fa-file-pen"></i>
+                    <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                    <div class="detail1">
+                      <h3>Req Document</h3>
+                    </div>
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div class="header1 nine">
+            <h1>Citizen Engagement</h1>
+          </div>
+
+          <div class="information">
+            <div class="r-video">
+              <div class="y-video">
+                <iframe width="887" height="499" src="https://www.youtube.com/embed/tF9lXxquYiM"
+                  title="Hon&#39;ble Education Minister Dharmendra Pradhan on 3rd Anniversary of #NEP2020"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <!-- <h2>Sneakers collection</h2> -->
+            </div>
+            <div class="feed">
+              <div class="soci">
+                <a class="twitter-timeline" data-width="360" data-height="270"
+                  href="https://twitter.com/EduMinOfIndia?ref_src=twsrc%5Etfw">Tweets by EduMinOfIndia</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
+            </div>
+          </div>
+
 
       </main>
-      <script src="/js/slider.js"></script>
       <%- include('../includes/end.ejs')%>

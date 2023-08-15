@@ -47,9 +47,6 @@ exports.postuserLogin = (req, res, next) => {
     });
 }
 
-
-
-
 exports.getAdminLogin = (req, res, next) => {
     let message = req.flash('error');
     if (message.length > 0) {
