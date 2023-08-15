@@ -48,7 +48,7 @@ const studentroute = require('./routes/user');
 const authroute = require('./routes/auth');
 const educationroute = require('./routes/edu');
 
-app.use(helmet());
+// app.use(helmet());
 app.use(compression());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(multer({ storage: filestorage, fileFilter: filefilter }).single('marksheetlink'));
