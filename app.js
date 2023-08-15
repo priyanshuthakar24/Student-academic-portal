@@ -8,12 +8,14 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require("helmet");
+const compression = require('compression');
 
 
 const errorcontroller = require('./controllers/error');
 const Admin = require('./models/admin');
 
-const MONGODB_URI = 'mongodb+srv://priyanshuthakar24:%40pinku24@cluster0.c77xwlg.mongodb.net/datacollection';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.c77xwlg.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -46,7 +48,8 @@ const studentroute = require('./routes/user');
 const authroute = require('./routes/auth');
 const educationroute = require('./routes/edu');
 
-
+app.use(helmet());
+app.use(compression());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(multer({ storage: filestorage, fileFilter: filefilter }).single('marksheetlink'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -96,6 +99,6 @@ app.use(errorcontroller.get404);
 // });
 
 mongoose.connect(MONGODB_URI).then(result => {
-    app.listen(3003);
+    app.listen(process.env.PORT || 3003);
     console.log("Server listing on 3003")
 }).catch(err => { console.log(err) })
