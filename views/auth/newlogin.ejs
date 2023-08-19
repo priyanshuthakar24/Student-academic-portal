@@ -8,7 +8,7 @@
 
     <body>
         <!-- <%- include('../includes/nav.ejs')%> -->
-        <div class="header1" style="color: white;">Student Login</div>
+        <div class="header1">Student Login</div>
         <div class="login-wrap">
             <div class="login-html">
                 <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log
@@ -33,13 +33,14 @@
                                     value="<%= olddata.password%>">
                             </div>
                             <div class="group">
-                                <input id="check" type="checkbox" class="check" checked>
-                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                                <br>
+                                <!-- <input id="check" type="checkbox" class="check" checked>
+                                <label for="check"><span class="icon"></span> Keep me Signed in</label> -->
                             </div>
                             <div class="group">
                                 <!-- <button type="submit"> -->
                                 <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                <input type="submit" class="button" value="Log In">
+                                <input type="submit" class="button" value="Log In" style="font-family: 'Roboto Slab';">
                                 <!-- </button> -->
                             </div>
                             <!-- <div class="hr"></div> -->

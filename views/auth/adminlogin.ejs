@@ -7,12 +7,12 @@
     </head>
 
     <body>
-        <div class="header1" style="color: white;">Institute Login</div>
+        <div class="header1">Institute Login</div>
         <div class="login-wrap">
             <div class="login-html">
                 <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log
                     IN</label>
-                <input id="tab-2" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+                <input id="tab-2" name="tab" class="sign-up" checked><label for="tab-2" class="tab"></label>
                 <div class="login-form">
                     <div class="sign-in-htm">
                         <div class="message">
@@ -31,13 +31,14 @@
                                     value="<%= olddata.password%>">
                             </div>
                             <div class="group">
-                                <input id="check" type="checkbox" class="check" checked>
-                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                                <br>
+                                <!-- <input id="check" type="checkbox" class="check" checked>
+                                <label for="check"><span class="icon"></span> Keep me Signed in</label> -->
                             </div>
                             <div class="group">
                                 <!-- <button type="submit"> -->
                                 <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                <input type="submit" class="button" value="Log In">
+                                <input type="submit" class="button" value="Log In"  style="font-family: 'Roboto Slab';">
                                 <!-- </button> -->
                             </div>
                             <!-- <div class="hr"></div> -->

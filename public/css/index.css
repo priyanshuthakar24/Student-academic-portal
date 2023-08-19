@@ -10,8 +10,8 @@ body {
     font-family: 'Roboto Slab';
     color: #212121;
     /* outline: none; */
-    background: #b2e0df;
-   
+    /* background: #b2e0df; */
+    background: #eeeeee;
 }
 
 .header {
