@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/admin');
 const Student = require('../models/student');
 const { validationResult } = require('express-validator');
-
+const crypto = require("crypto");
+const algorithm = "aes-256-cbc";
 exports.getIndex = (req, res, next) => {
     const name = req.session.user;
     res.render('education/index', { pagetitle: 'edu Home', name: name.name });
@@ -66,8 +67,15 @@ exports.postsearchid = (req, res, next) => {
     // console.log(studentid);
     Student.findOne({ adharno: studentid }).then(data => {
         if (data) {
+            const newarr = []
+
+            for (let data1 of data.cart.items) {
+                const decipher = crypto.createDecipheriv(algorithm, process.env.key, process.env.iv);
+                decrypted = decipher.update(data1.marksheet, 'hex', 'utf8');
+                newarr.push(decrypted += decipher.final('utf8'))
+            }
             console.log(data);
-            res.render('education/deletemarksheet', { pagetitle: 'All detail', detail: data, name: name.name })
+            res.render('education/deletemarksheet', { pagetitle: 'All detail', detail: data, name: name.name, dect: newarr })
         }
         else {
             req.flash('error', 'Id Dose not Found');

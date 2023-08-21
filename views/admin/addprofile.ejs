@@ -1,7 +1,7 @@
 <%- include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/form.css">
     <style>
-        
+
     </style>
     </head>
 
@@ -34,6 +34,13 @@
                                         value="<% if (editing) {%><%=product.mobileno %><%}else{%><%= olddata.mobileno%><%}%>"
                                         class="icon-left" placeholder="Your Phone Number" pattern="[0-9]{10}" required>
                                 </div>
+                                <!-- new div for indexing  -->
+                                <div class="nice-form-group">
+                                    <label for="ct_year">Created Year</label>
+                                    <input type="tel" name="create_year" maxlength="4" minlength="4"
+                                        value="<% if (editing) {%><%=product.ct_year %><%}else{%><%= olddata.ct_year%><%}%>"
+                                        placeholder="profile creating year 20** " required>
+                                </div>
                                 <div class="nice-form-group">
                                     <label for="email">Email</label>
                                     <input type="email" name="email"
@@ -43,7 +50,7 @@
                                 <div class="nice-form-group">
                                     <label for="dob">Date of Birth</label>
                                     <% if(editing) {%>
-                                        <input type="text" name="dob" value="<% if (editing) {%><%=product.Dob %><%}%>" 
+                                        <input type="text" name="dob" value="<% if (editing) {%><%=product.Dob %><%}%>"
                                             required>
                                         <%}else{%>
                                             <input type="date" name="dob" value="<%= olddata.dob%>" required>

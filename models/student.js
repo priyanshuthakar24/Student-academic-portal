@@ -14,11 +14,14 @@ const studentschema = new Schema({
         type: String,
         required: true
     },
+    ct_year:{
+        type: Number,
+        required: true
+    },
     adharno: {
         type: String,
         required: true,
-        unique: true,
-        index:true,
+        unique:true
     },
     Dob: {
         type: String,
@@ -70,12 +73,15 @@ studentschema.methods.removefromCart = function (productId) {
         console.log(item._id);
         return item._id.toString() !== productId.toString();
     });
-    const unlik=this.cart.items.filter(item1=>{
-        return item1._id.toString() === productId.toString();
-    })
-    console.log(unlik);
-    filehelper.deleteFile(unlik[0].marksheet);
     this.cart.items = updatedCartItems;
     return this.save();
 }
+
+studentschema.index({ct_year:1,adharno:1});
+studentschema.index({adminId:1,adharno:1});
 module.exports = mongoose.model('Students', studentschema);
+// const unlik = this.cart.items.filter(item1 => {
+//     return item1._id.toString() === productId.toString();
+// })
+// console.log(unlik);
+// filehelper.deleteFile(unlik[0].marksheet);

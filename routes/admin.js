@@ -8,24 +8,24 @@ const Student = require('../models/student');
 
 router.get('/index', isAuth, admincontroller.getindex);
 router.get('/addstudent', isAuth, admincontroller.getnewform);
-router.post('/newstudent', isAuth, [check('name', 'name is not valid').trim().isAlpha('en-US', {ignore: '\s'}), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim().custom((value) => {
+router.post('/newstudent', isAuth, [check('name', 'name is not valid').trim().isAlpha('en-US', { ignore: '\s' }), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('create_year').isLength({ min: 4, max: 4 }).trim(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim().custom((value) => {
     return Student.findOne({ adharno: value }).then(data => {
         if (data) {
             return Promise.reject("you cannot create profile with same adhar id");
         }
     })
-}),check('password','password Should be min 4 charcter long..').isLength({min:4}).trim()], admincontroller.poststudentdata);
+}), check('password', 'password Should be min 8 charcter long..').isLength({ min: 8 }).trim()], admincontroller.poststudentdata);
 
 router.get('/editstudent', isAuth, admincontroller.getstudent);
 router.post('/studentid', isAuth, admincontroller.getstudentdetail);
 router.get('/addmarksheet/:studentid', isAuth, admincontroller.getaddmarksheet);
-router.post('/postmarksheet', isAuth, [check('std',"enater valid Std").isNumeric().isLength({min:1,max:2})],admincontroller.postaddmarksheet);
+router.post('/postmarksheet', isAuth, [check('std', "enater valid Std").isNumeric().isLength({ min: 1, max: 2 })], admincontroller.postaddmarksheet);
 router.get('/editid/:studentid', isAuth, admincontroller.geteditprofile);
-router.post('/editdetail', isAuth,[check('name', 'name is not valid').trim().isAlpha('en-US', {ignore: '\s'}), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim(),check('password','password Should be min 4 charcter long..').isLength({min:4}).trim()], admincontroller.posteditprofile)
+router.post('/editdetail', isAuth, [check('name', 'name is not valid').trim().isAlpha('en-US', { ignore: '\s' }), check('mobileno', 'please enter 10 digit number').isMobilePhone(), check('email', 'please enter valid email').isEmail().normalizeEmail().trim(), check('adharno', "enter 12 digit  number").isLength({ min: 12, max: 12 }).trim(), check('password', 'password Should be min 4 charcter long..').isLength({ min: 4 }).trim()], admincontroller.posteditprofile)
 router.get('/viewdetail', isAuth, admincontroller.getid);
 router.post('/viewdata', isAuth, admincontroller.getstudentdata);
-router.post('/document',admincontroller.postdocument);
-router.get('/requestdocument',isAuth,admincontroller.getrequestdocument)
-router.post('/requestdocument',isAuth,admincontroller.postrequestdocument)
-router.post('/deletedocument',isAuth,admincontroller.postdelete);
+router.post('/document', admincontroller.postdocument);
+router.get('/requestdocument', isAuth, admincontroller.getrequestdocument)
+router.post('/requestdocument', isAuth, admincontroller.postrequestdocument)
+router.post('/deletedocument', isAuth, admincontroller.postdelete);
 module.exports = router;

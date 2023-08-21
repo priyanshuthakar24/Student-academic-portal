@@ -14,14 +14,14 @@
                 <div class="header1">
                     <h1>Add Marksheet</h1>
                 </div>
-                <form action="/admin/postmarksheet" method="post" class="product-form" enctype="multipart/form-data">
+                <form action="/admin/postmarksheet" method="post" class="product-form" enctype="multipart/form-data"  >
                     <% if(errormessage){%>
                         <%= errormessage%>
                             <%}%>
 
                                 <div class="nice-form-group">
                                     <label for="marksheet">Marksheet link</label>
-                                    <input type="file" id="file" name="marksheetlink" required
+                                    <input type="file" id="filew" name="marksheetlink" required
                                         value="<%= olddata.marksheet%>">
                                 </div>
                                 <div class="nice-form-group">
@@ -35,33 +35,52 @@
                                             <%= olddata.result%>
                                         </option>
                                         <option value="<%= olddata.result === 'Fail' ? 'Pass' : 'Fail' %>">
-                                            <%= olddata.result === 'Fail' ? 'Pass' : 'Fail' %>
+                                            <%= olddata.result==='Fail' ? 'Pass' : 'Fail' %>
                                         </option>
                                     </select>
                                 </div>
                                 <input type="hidden" name="studentid" value="<%= olddata.studentid%>">
-                                <button type="submit" class="btn btn-primary" onsubmit="submit()">
+                                <button type="submit" class="btn btn-primary" onclick="myFunction()">
                                     <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
                                     <!-- <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>"> -->
                                     Add Marksheet
                                 </button>
                 </form>
             </main>
-            <!-- <script>
-                let file;
-                document.getElementById('file').addEventListener("change", (e) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(e.target.files[0]);
-                    reader.onloadend = () => { file = reader.result };
-                    console.log(reader.result)
+            <script>
+                let data;
+                document.getElementById('filew').addEventListener("change", (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onloadend = () => {
+                            data = reader.result
+                            console.log(data);
+                        };
+                    }
                 });
-                const submit = (e) => {
-                    e.preventDefault();
-                    fetch('http://localhost:3003/admin/postmarksheet', {
-                        marksheet: file,
-                        std: std,
-                        result: result
-                    })
+
+                function myFunction() {
+                    var x = document.getElementById('filew');
+                    if (x.type === "file") {
+                        x.type = "text";
+                        x.value = data;
+                        //     // alert(data);
+                    } else {
+                        x.type = "file";
+                    }
+                    //  fi.value=data;
                 }
-            </script> -->
+                // const myFunction = (e) => {
+                //     e.preventDefault();
+                //     console.log(data)
+                //     console("this function is called")
+                //     fetch('http://localhost:3003/admin/postmarksheet', {
+                //         marksheet: data,
+                //         std: std,
+                //         result: result
+                //     })
+                // }
+            </script>
             <%- include('../includes/end.ejs')%>

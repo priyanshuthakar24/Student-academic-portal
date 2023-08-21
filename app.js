@@ -17,12 +17,6 @@ const Admin = require('./models/admin');
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.c77xwlg.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}`;
 
-const app = express();
-const store = new MongoDBStore({
-    uri: MONGODB_URI,
-    collection: 'session'
-});
-const csrfProtection = csrf();
 const filestorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'images');
@@ -40,6 +34,14 @@ const filefilter = (req, file, cb) => {
         req.flash('error', 'Please add jpg or jpeg or png formet');
     }
 }
+
+const app = express();
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'session'
+});
+const csrfProtection = csrf();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -50,13 +52,13 @@ const educationroute = require('./routes/edu');
 
 // app.use(helmet());
 app.use(compression());
-app.use(bodyparser.urlencoded({ extended: false }));
 app.use(multer({ storage: filestorage, fileFilter: filefilter }).single('marksheetlink'));
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false, store: store }));
-app.use(csrfProtection);
 app.use(flash());
+app.use(csrfProtection);
 
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -102,3 +104,6 @@ mongoose.connect(MONGODB_URI).then(result => {
     app.listen(process.env.PORT || 3003);
     console.log("Server listing on 3003")
 }).catch(err => { console.log(err) })
+
+
+

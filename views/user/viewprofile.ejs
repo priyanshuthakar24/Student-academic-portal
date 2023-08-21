@@ -77,37 +77,39 @@
                 <div class="marksheet-data">
                     <% if (detail.cart.items.length> 0){%>
                         <!-- <div class="card2"> -->
-                        <% for(let data of detail.cart.items){%>
-                            <!-- <div class="box card-body"> -->
-                            <div class="box">
-                                <div class="box-img">
-                                    <img src="<%= data.marksheet%>" class="card-img-top" alt="..." id="imageBox1"
-                                        onclick="resetImg(event)">
-                                </div>
-                                <div class="box-detail">
-                                    <h5>Std: <%=data.std%>
-                                    </h5>
-                                    <p>Status: <%=data.result%>
-                                    </p>
-                                    <form action="/download" method="post">
-                                        <button type="submit" class="btn btn-primary">Download</button>
-                                        <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                                        <input type="hidden" name="studentid" value="<%= detail._id%>">
-                                        <input type="hidden" name="marksheetid" value="<%= data._id%>">
-                                    </form>
-                                </div>
-                                <!-- </div> -->
-                            </div>
+                        <% let i=0 %>
+                            <% for(let data of detail.cart.items){%>
 
-                            <%}%>
-                                <!-- </div> -->
-                                <%}else{%>
-                                    <div class="card2">
-                                        <p>No marksheet ..</p>
+                                <!-- <div class="box card-body"> -->
+                                <div class="box">
+                                    <div class="box-img">
+                                        <img src="<%= decryptedata[i]%>" class="card-img-top" alt="..." id="imageBox1"
+                                            onclick="resetImg(event)">
                                     </div>
-                                    <%}%>
+                                    <div class="box-detail">
+                                        <h5>Std: <%=data.std%>
+                                        </h5>
+                                        <p>Status: <%=data.result%>
+                                        </p>
+                                        <form action="/download" method="post">
+                                            <button type="submit" class="btn btn-primary">Download</button>
+                                            <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
+                                            <input type="hidden" name="studentid" value="<%= detail._id%>">
+                                            <input type="hidden" name="marksheetid" value="<%= data._id%>">
+                                        </form>
+                                    </div>
+                                    <!-- </div> -->
+                                    <% i++%>
+                                </div>
+                                <%}%>
+                                    <!-- </div> -->
+                                    <%}else{%>
+                                        <div class="card2">
+                                            <p>No marksheet ..</p>
+                                        </div>
+                                        <%}%>
                 </div>
         </main>
-        
+
         <script src="/js/image.js"></script>
         <%- include('../includes/end.ejs')%>

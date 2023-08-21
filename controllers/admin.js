@@ -2,7 +2,11 @@ const bcrypt = require('bcryptjs');
 const Student = require('../models/student');
 const Document = require('../models/document');
 const { validationResult } = require('express-validator');
-
+// const crypto=require('../util/ency');
+// encryption of image 
+const crypto = require("crypto");
+const algorithm = "aes-256-cbc";
+// / *-*-*-*-*
 
 
 exports.getindex = (req, res, next) => {
@@ -29,6 +33,7 @@ exports.poststudentdata = (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
     const mobileno = req.body.mobileno;
+    const create_year = req.body.create_year;
     const dob = req.body.dob;
     const xender = req.body.xender;
     const adrno = req.body.adharno;
@@ -37,7 +42,7 @@ exports.poststudentdata = (req, res, next) => {
     console.log(errors);
     if (!errors.isEmpty()) {
         console.log(xender);
-        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: false, errormessage: errors.array()[0].msg, name: name1.name, olddata: { name: name, mobileno: mobileno, dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: false, errormessage: errors.array()[0].msg, name: name1.name, olddata: { name: name, mobileno: mobileno, ct_year: create_year, dob: dob, xender: xender, adharno: adrno, email: email, password: password } })
     }
     console.log(req.user);
     Student.findOne({ email: email }).then(adminDoc => {
@@ -45,7 +50,7 @@ exports.poststudentdata = (req, res, next) => {
         bcrypt.hash(password, 12)
             .then(hashedpassword => {
                 const data = new Student({
-                    name: name, email: email, mobileno: mobileno, adharno: adrno, Dob: dob, xender: xender, adminId: req.user,
+                    name: name, email: email, mobileno: mobileno, ct_year: create_year, adharno: adrno, Dob: dob, xender: xender, adminId: req.user,
                     password: hashedpassword
                 });
                 return data.save();
@@ -72,9 +77,10 @@ exports.getstudent = (req, res, next) => {
 
 exports.getstudentdetail = (req, res, next) => {
     const name = req.session.user;
+    const adminid = req.session.user._id;
     const studentid = req.body.search;
     console.log(studentid);
-    Student.findOne({ adharno: studentid }).then(studentdata => {
+    Student.findOne({ adminId: adminid, adharno: studentid }).then(studentdata => {
         if (!studentdata) {
             req.flash('error', 'Id Dose not Found');
             res.redirect('/admin/editstudent');
@@ -83,7 +89,7 @@ exports.getstudentdetail = (req, res, next) => {
             console.log(studentdata.adminId);
             console.log(req.user._id);
             if (studentdata.adminId.toString() === req.user._id.toString()) {
-                res.render('admin/updateprofile', { pagetitle: 'Update Profile', studentdata: studentdata, name: name.name  });
+                res.render('admin/updateprofile', { pagetitle: 'Update Profile', studentdata: studentdata, name: name.name });
             } else {
                 req.flash('error', "You can't access this id");
                 res.redirect('/admin/editstudent');
@@ -113,21 +119,31 @@ exports.getaddmarksheet = (req, res, next) => {
     });
     // console.log(studentid);
 }
+
+
 exports.postaddmarksheet = (req, res, next) => {
     const name = req.session.user;
     const studentid = req.body.studentid;
     console.log(studentid);
     const marksheetlink = req.file;
+    const marksheet = req.body.marksheetlink;
+    console.log(marksheet);
     const std = req.body.std;
     const result = req.body.result;
-    const marksheet = marksheetlink.path;
+    // encrypt the message with the specified input encoding and give output in specified output encoding.
+    const cipher = crypto.createCipheriv(algorithm,process.env.key, process.env.iv);
+    let encryptedData = cipher.update(marksheet, "utf8", "hex");
+    encryptedData += cipher.final("hex");
+
+    // console.log("Encrypted message: " + encryptedData);
+    // const marksheet = marksheetlink.path;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: marksheet, std: std, result: result, studentid: studentid }, name: name.name })
+        return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: encryptedData, std: std, result: result, studentid: studentid }, name: name.name })
     }
     Student.findById(studentid).then(data => {
         const updatedCartItems = [...data.cart.items];
-        updatedCartItems.push({ marksheet: marksheet, std: std, result: result });
+        updatedCartItems.push({ marksheet: encryptedData, std: std, result: result });
         const updatedCart = { items: updatedCartItems };
         data.cart = updatedCart;
         return data.save();
@@ -137,23 +153,12 @@ exports.postaddmarksheet = (req, res, next) => {
         console.log(err);
     });
 };
-// exports.postaddmarksheet = (req, res, next) => {
-//     const studentid = req.body.studentid;
-//     console.log(studentid);
-//     const markshet = req.body.marksheet;
-//     const std = req.body.std;
-//     const result = req.body.result;
-//     const marksheet = markshet.path;
-//     Student.findById(studentid).then(data => {
-//         const updatedCartItems = [...data.cart.items];
-//         updatedCartItems.push({ marksheet: marksheet, std: std, result: result });
-//         const updatedCart = { items: updatedCartItems };
-//         data.cart = updatedCart;
-//         return data.save();
-//     }).then(result => {
-//         res.redirect('/admin/index');
-//     })
-// };
+
+
+
+
+
+
 exports.getid = (req, res, next) => {
     const name = req.session.user;
     let message = req.flash('error');
@@ -162,7 +167,7 @@ exports.getid = (req, res, next) => {
     } else {
         message = null;
     }
-    res.render('admin/searchid', { pagetitle: 'searchid', errormessage: message, name: name.name  })
+    res.render('admin/searchid', { pagetitle: 'searchid', errormessage: message, name: name.name })
 }
 
 
@@ -172,8 +177,18 @@ exports.getstudentdata = (req, res, next) => {
     // console.log(studentid);
     Student.findOne({ adharno: studentid }).then(data => {
         if (data) {
-            console.log(data);
-            res.render('admin/viewprofile', { pagetitle: 'All detail', detail: data, name: name.name  })
+            const newarr = []
+
+            for (let data1 of data.cart.items) {
+                // console.log(data1);
+                const decipher = crypto.createDecipheriv(algorithm, process.env.key, process.env.iv);
+                decrypted = decipher.update(data1.marksheet, 'hex', 'utf8');
+                newarr.push(decrypted += decipher.final('utf8'))
+                // newarr.push(data.cart.items.std);
+            }
+            // console.log("Decrypted message: " + newarr);
+
+            res.render('admin/viewprofile', { pagetitle: 'All detail', detail: data, name: name.name, dect: newarr });
         }
         else {
             req.flash('error', 'Id Dose not Found');
@@ -198,7 +213,7 @@ exports.geteditprofile = (req, res, next) => {
         message = null
     }
     Student.findById(studentid).then(data => {
-        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, name: name.name , olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
+        res.render("admin/addprofile", { pagetitle: 'editdetail', product: data, editing: true, errormessage: message, name: name.name, olddata: { name: "", mobileno: '', dob: '', xender: 'Male', adharno: '', email: '', password: '' } })
     }).catch(err => {
         console.log(err);
     });
@@ -209,6 +224,7 @@ exports.posteditprofile = (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
     const mobileno = req.body.mobileno;
+    const create_year = req.body.create_year;
     const dob = req.body.dob;
     const xender = req.body.xender;
     const adrno = req.body.adharno;
@@ -217,7 +233,7 @@ exports.posteditprofile = (req, res, next) => {
     let pass;
     if (!errors.isEmpty()) {
         console.log(xender);
-        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: true, errormessage: errors.array()[0].msg, product: { name: name, mobileno: mobileno, Dob: dob, xender: xender, adharno: adrno, email: email, password: password }, name: name1.name  })
+        return res.status(402).render('admin/addprofile', { pagetitle: 'Add Profile', path: '/admin/addprofile', editing: true, errormessage: errors.array()[0].msg, product: { name: name, mobileno: mobileno, create_year: create_year, Dob: dob, xender: xender, adharno: adrno, email: email, password: password }, name: name1.name })
     } else {
         Student.findById(studentid).then(data => {
             pass = data;
@@ -229,6 +245,7 @@ exports.posteditprofile = (req, res, next) => {
             pass.name = name;
             pass.email = email;
             pass.mobileno = mobileno;
+            pass.ct_year = create_year;
             pass.Dob = dob
             pass.xender = xender;
             pass.adharno = adrno;
@@ -272,7 +289,7 @@ exports.getrequestdocument = (req, res, next) => {
 
     Document.find({ adminId: id }).then(data => {
         console.log(data)
-        res.render("admin/documentlist", { pagetitle: 'document list', list: data , name: name.name })
+        res.render("admin/documentlist", { pagetitle: 'document list', list: data, name: name.name })
     })
 }
 exports.postrequestdocument = (req, res, next) => {
@@ -281,7 +298,7 @@ exports.postrequestdocument = (req, res, next) => {
     const adharno = req.body.adharno;
     const docid = req.body.productId;
     Document.find({ adminId: id, adharno: adharno }).then(data => {
-        res.render("admin/documentinfo", { pagetitle: 'document list', list: data, name: name.name  })
+        res.render("admin/documentinfo", { pagetitle: 'document list', list: data, name: name.name })
     })
 }
 exports.postdelete = (req, res, next) => {
@@ -297,3 +314,26 @@ exports.postdelete = (req, res, next) => {
 //         console.log(result);
 //         res.redirect('/admin/index');
 //     }).catch(err => console.log(err));
+// exports.postaddmarksheet = (req, res, next) => {
+//     const name = req.session.user;
+//     const studentid = req.body.studentid;
+//     console.log(studentid);
+//     const marksheet = req.body.marksheet;
+//     const std = req.body.std;
+//     const result = req.body.result;
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         return res.status(402).render('admin/addmarksheet', { pagetitle: 'Add Profile', path: '/admin/addmarksheet', errormessage: errors.array()[0].msg, olddata: { marksheet: marksheet, std: std, result: result, studentid: studentid }, name: name.name })
+//     }
+//     Student.findById(studentid).then(data => {
+//         const updatedCartItems = [...data.cart.items];
+//         updatedCartItems.push({ marksheet: markshet, std: std, result: result });
+//         const updatedCart = { items: updatedCartItems };
+//         data.cart = updatedCart;
+//         return data.save();
+//     }).then(result => {
+//         res.redirect('/admin/index');
+//     }).catch(err => {
+//         console.log(err);
+//     })
+// };.
