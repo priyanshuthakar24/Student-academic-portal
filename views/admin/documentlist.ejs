@@ -1,22 +1,19 @@
 <%- include('../includes/head.ejs')%>
-    <!-- <link rel="stylesheet" href="/css/form.css"> -->
+    <link rel="stylesheet" href="/css/reqdocument.css">
     </head>
 
     <body>
         <%- include('../includes/nav.ejs')%>
-            <div class="mainbox">
+            <div class="main-div">
                 <% for ( let data of list){%>
-                    <div class="mainbox_box1 card1">
-
-
-                        <button type="submit">
+                    <div class="detail-box">
+                        <div class="p-detail">
                             <lable>Name</lable>: <%= data.name%> <br>
-                                <lable>ADhar no</lable>: <%= data.adharno%> <br>
+                                <lable>Aadhaar No</lable>: <%= data.adharno%> <br>
                                     <lable>Document</lable>: <%= data.documenttype%> <br><br>
-                        </button>
+                        </div>
                         <form action="/admin/deletedocument" method="post">
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: blue;margin: 10px;padding: 30px;"><i class="fa-solid fa-trash"></i></button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-trash"></i></button>
                             <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
                             <input type="hidden" value="<%=data._id %>" name="productId">
                         </form>
@@ -24,8 +21,7 @@
                             <input type="hidden" value="<%=data.adharno %>" name="adharno">
                             <input type="hidden" value="<%=data._id %>" name="productId">
                             <input type="hidden" name="_csrf" id="" value="<%= csrfToken %>">
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: blue;margin: 10px; padding: 30px;">View Detail</button>
+                            <button type="submit" class="btn btn-primary">View Detail</button>
                         </form>
                     </div>
 

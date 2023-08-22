@@ -1,0 +1,22 @@
+.main-div{
+    display: grid;
+   grid-template-columns: auto auto auto auto;
+   padding: 50px;
+   /* margin: auto; */
+    /* width: 74vw; */
+    /* box-shadow: 1px 1px 8px 0 black; */
+    grid-gap: 3rem;
+}
+.detail-box{
+    /* margin: 10px 30px; */
+    border-radius: .5rem;
+    background: #00b7cd;
+    background: #0090ba;
+    padding: 20px 0px 0px 0px;
+    border-radius: 18px;
+       background: #fff;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+}

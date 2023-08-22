@@ -124,12 +124,12 @@ exports.getaddmarksheet = (req, res, next) => {
 exports.postaddmarksheet = (req, res, next) => {
     const name = req.session.user;
     const studentid = req.body.studentid;
-    console.log(studentid);
+    // console.log(studentid);
     const marksheetlink = req.file;
     const marksheet = req.body.marksheetlink;
-    console.log(marksheet);
+    // console.log(marksheet);
     const std = req.body.std;
-    const result = req.body.result;
+    const result = req.body.result; 
     // encrypt the message with the specified input encoding and give output in specified output encoding.
     const cipher = crypto.createCipheriv(algorithm,process.env.key, process.env.iv);
     let encryptedData = cipher.update(marksheet, "utf8", "hex");
